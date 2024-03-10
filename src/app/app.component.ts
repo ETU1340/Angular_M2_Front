@@ -10,7 +10,11 @@ import { AuthService } from './shared/auth.service';
 import { AssignmentsService } from './shared/assignments.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { bootstrapLayoutSidebarInset } from '@ng-icons/bootstrap-icons';
+import {
+  bootstrapLayoutSidebarInset,
+  bootstrapPlusLg,
+} from '@ng-icons/bootstrap-icons';
+import { heroHome } from '@ng-icons/heroicons/outline';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -27,7 +31,9 @@ import { bootstrapLayoutSidebarInset } from '@ng-icons/bootstrap-icons';
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  providers: [provideIcons({ bootstrapLayoutSidebarInset })],
+  providers: [
+    provideIcons({ bootstrapLayoutSidebarInset, heroHome, bootstrapPlusLg }),
+  ],
 })
 export class AppComponent {
   title = 'Application de gestion des assignments';
