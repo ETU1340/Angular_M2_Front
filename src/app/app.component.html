@@ -1,13 +1,42 @@
-<h1>
-  <nav>
-    <a routerLink="/home">{{title}}</a>
-  </nav>
-</h1>
-<mat-slide-toggle (click)="login()" color="primary">Login</mat-slide-toggle>
-<button mat-button (click)="genererDonneesDeTest()">Peupler BD</button>
+<!-- <button mat-button (click)="genererDonneesDeTest()">Peupler BD</button> -->
 
-<router-outlet></router-outlet>
-<!--
-<app-assignments></app-assignments>
--->
+<!-- <mat-drawer-container class="w-48 h-full bg-blue-100" autosize>
+  <mat-drawer #drawer class="bg-red-500 w-16 h-full" mode="side">
+    <p>Auto-resizing sidenav</p>
+    @if (showFiller) {
+    <p>Lorem, ipsum dolor sit amet consectetur.</p>
+    }
+    <button (click)="showFiller = !showFiller" mat-raised-button>
+      Toggle extra text
+    </button>
+  </mat-drawer>
+</mat-drawer-container> -->
 
+<mat-drawer-container class="w-full min-h-screen h-fit" autosize>
+  <mat-drawer #drawer class="h-full" mode="side">
+    <p>Auto-resizing sidenav</p>
+  </mat-drawer>
+  <div>
+    <div
+      class="w-full h-16 bg-blue-500 flex items-center justify-between px-10"
+    >
+      <button type="button" mat-button (click)="drawer.toggle()">
+        <ng-icon
+          name="bootstrapLayoutSidebarInset"
+          color="#fff"
+          size="27"
+        ></ng-icon>
+      </button>
+      <h1>
+        <a routerLink="/home">{{ title }}</a>
+      </h1>
+      <mat-slide-toggle (click)="login()" color="primary"
+        >Login</mat-slide-toggle
+      >
+    </div>
+    <!-- <router-outlet></router-outlet> -->
+  </div>
+  <!-- <div class="h-full">
+
+  </div> -->
+</mat-drawer-container>

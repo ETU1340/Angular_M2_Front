@@ -8,27 +8,41 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { AuthService } from './shared/auth.service';
 import { AssignmentsService } from './shared/assignments.service';
-
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { bootstrapLayoutSidebarInset } from '@ng-icons/bootstrap-icons';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, MatButtonModule, MatDividerModule,
-            MatIconModule, MatSlideToggleModule,
-            AssignmentsComponent],
+  imports: [
+    RouterOutlet,
+    RouterLink,
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
+    MatSlideToggleModule,
+    AssignmentsComponent,
+    MatSidenavModule,
+    NgIconComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  providers: [provideIcons({ bootstrapLayoutSidebarInset })],
 })
 export class AppComponent {
   title = 'Application de gestion des assignments';
+  showFiller = true;
 
-  constructor(private authService:AuthService,
-              private assignmentsService: AssignmentsService,
-              private router:Router) {}
+  constructor(
+    private authService: AuthService,
+    private assignmentsService: AssignmentsService,
+    private router: Router
+  ) {}
 
   login() {
     // on utilise le service d'autentification
     // pour se connecter ou se déconnecter
-    if(!this.authService.loggedIn) {
+    if (!this.authService.loggedIn) {
       this.authService.logIn();
     } else {
       this.authService.logOut();
@@ -42,11 +56,11 @@ export class AppComponent {
     /* VERSION NAIVE
     this.assignmentsService.peuplerBD();
     */
-
     // VERSION AVEC Observable
-    this.assignmentsService.peuplerBDavecForkJoin()
-    .subscribe(() => {
-      console.log("Données générées, on rafraichit la page pour voir la liste à jour !");
+    this.assignmentsService.peuplerBDavecForkJoin().subscribe(() => {
+      console.log(
+        'Données générées, on rafraichit la page pour voir la liste à jour !'
+      );
       window.location.reload();
       // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
       // this.router.navigate(['/home'], {replaceUrl:true});
