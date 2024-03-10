@@ -13,35 +13,41 @@
 </mat-drawer-container> -->
 
 <mat-drawer-container class="w-full min-h-screen h-fit">
-  <mat-drawer #drawer class="h-full" mode="side">
-    <div class="h-16 bg-blue-500 w-60"></div>
+  <mat-drawer #drawer class="h-full py-5" mode="side">
+    <div
+      class="h-16 w-60 flex items-center justify-center text-xl font-extrabold text-blue-500"
+    >
+      Assign-App
+    </div>
     <div class="bg-blue-100 mx-5 mt-10 px-6 py-4 rounded-xl">
-      <button
+      <a
         class="flex items-center justify-start gap-4 hover:text-blue-500 transition-all duration-100"
+        routerLink="/home"
       >
         <ng-icon name="heroHome" size="27"></ng-icon> Home
-      </button>
+      </a>
     </div>
     <div class="bg-blue-100 mx-5 mt-5 px-6 py-4 rounded-xl">
       <p>Assignments</p>
-      <button
+      <a
         class="flex items-center justify-start gap-4 mt-4 hover:text-blue-500 transition-all duration-100"
+        routerLink="/add"
       >
         <ng-icon name="bootstrapPlusLg" size="27"></ng-icon> Add
-      </button>
+      </a>
     </div>
   </mat-drawer>
-  <div>
+  <div class="bg-white h-screen px-5 py-5">
     <div
-      class="w-full h-16 bg-blue-500 flex items-center justify-between px-10"
+      class="w-full h-16 bg-blue-100 rounded-xl flex items-center justify-between px-10"
     >
-      <button type="button" mat-button (click)="drawer.toggle()">
-        <ng-icon
-          name="bootstrapLayoutSidebarInset"
-          color="#fff"
-          size="27"
-        ></ng-icon>
-      </button>
+      <!-- <button type="button" mat-button> -->
+      <ng-icon
+        name="bootstrapLayoutSidebarInset"
+        size="27"
+        (click)="drawer.toggle()"
+      ></ng-icon>
+      <!-- </button> -->
       <!-- <h1>
         <a routerLink="/home" class="text-white font-bold">{{ title }}</a>
       </h1> -->
@@ -49,7 +55,11 @@
         >Login</mat-slide-toggle
       >
     </div>
-    <!-- <router-outlet></router-outlet> -->
+    <div
+      class="w-11/12 mx-auto min-h-full p-10 rounded-xl bg-blue-50 mt-10 prose max-w-none"
+    >
+      <router-outlet></router-outlet>
+    </div>
   </div>
   <!-- <div class="h-full">
 

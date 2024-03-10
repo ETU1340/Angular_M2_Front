@@ -1,11 +1,13 @@
-<div class="container">
-  <div class="btnAjout">
-    <a routerLink="/add">
-      <button mat-flat-button color="accent">Ajouter Assignment</button>
-    </a>
-  </div>
-
-  <h2>{{ titre }}</h2>
+<div class="w-full h-full">
+  <ngx-spinner
+    bdColor="rgba(51,51,51,0.8)"
+    size="medium"
+    color="#fff"
+    type="ball-scale-multiple"
+  >
+    <p style="font-size: 20px; color: white">Loading...</p>
+  </ngx-spinner>
+  <h1 class="m-0">{{ titre }}</h1>
   <p>
     Nb documents : {{ totalDocs }}, nbPages : {{ totalPages }}
     <br />
@@ -20,7 +22,7 @@
     </mat-slider>
   </p>
 
-  <h2>Version avec scrolling infini</h2>
+  <!-- <h2>Version avec scrolling infini</h2>
   <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
     <mat-list *cdkVirtualFor="let a of assignments" class="example-item">
       <a routerLink="/assignments/{{ a._id }}">
@@ -33,11 +35,9 @@
         <mat-divider></mat-divider>
       </a>
     </mat-list>
-  </cdk-virtual-scroll-viewport>
+  </cdk-virtual-scroll-viewport> -->
 
-  <h1>Avec data table</h1>
-
-  <div>
+  <div class="">
     <button
       mat-raised-button
       color="primary"
@@ -78,7 +78,7 @@
 
   <mat-paginator
     #paginator
-    class="demo-paginator"
+    class="mt-5 bg-transparent"
     (page)="handlePageEvent($event)"
     [length]="totalPages"
     [pageSize]="limit"
@@ -116,7 +116,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 
-  <h1>Version avec ul / li et for</h1>
+  <!-- <h1>Version avec ul / li et for</h1>
   <mat-divider></mat-divider>
   <mat-list>
     @for(a of assignments; track a.nom) {
@@ -137,28 +137,5 @@
     </mat-list-item>
     <mat-divider></mat-divider>
     }
-  </mat-list>
+  </mat-list> -->
 </div>
-
-<!--
-<p>Avec Angular supérieur à la version 17</p>
-<table>
-  <tbody>
-    @for (a of assignments; track a.nom) {
-      <div [ngStyle]="{'color':getColor(a)}">
-      @if(a.rendu) {
-        <tr>
-          <td>{{ a.nom }}</td>
-          <td>{{ a.dateDeRendu|date }}</td>
-          <td>{{ a.rendu }}</td>
-        </tr>
-      } @else {
-        <tr>
-          <td>{{ a.nom }} NON RENDU !!!!</td>
-        </tr>
-      }
-    </div>
-    }
-  </tbody>
-</table>
--->

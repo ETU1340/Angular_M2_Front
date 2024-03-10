@@ -19,6 +19,8 @@ import { AddAssignmentComponent } from './add-assignment/add-assignment.componen
 import { AssignmentsService } from '../shared/assignments.service';
 import { RouterLink } from '@angular/router';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
+import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
+import {} from 'ngx-spinner';
 @Component({
   selector: 'app-assignments',
   standalone: true,
@@ -39,6 +41,7 @@ import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
     RenduDirective,
     AssignmentDetailComponent,
     AddAssignmentComponent,
+    NgxSpinnerModule,
   ],
 })
 export class AssignmentsComponent implements OnInit {
@@ -52,18 +55,23 @@ export class AssignmentsComponent implements OnInit {
   prevPage!: number;
   hasNextPage!: boolean;
   hasPrevPage!: boolean;
-
   // tableau des assignments POUR AFFICHAGE
   displayedColumns: string[] = ['nom', 'dateDeRendu', 'rendu'];
 
   assignments: Assignment[] = [];
 
+  // UI control
+  isLoading = true;
+
   // pour virtual scroll infini
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
   // ici on injecte le service
-  constructor(private assignmentsService: AssignmentsService,
-    private ngZone: NgZone) {}
+  constructor(
+    private assignmentsService: AssignmentsService,
+    private ngZone: NgZone,
+    private spinner: NgxSpinnerService
+  ) {}
 
   getColor(a: any) {
     return a.rendu ? 'green' : 'red';
@@ -103,19 +111,21 @@ export class AssignmentsComponent implements OnInit {
         // On ne rentre que si on scrolle vers le bas, que si
         // la distance de la scrollbar est < 100 pixels et que
         // toutes les 200 ms
-          console.log('On demande de nouveaux assignments');
-          // on va faire une requête pour demander les assignments suivants
-          // et on va concatener le resultat au tableau des assignments courants
-          console.log('je CHARGE DE NOUVELLES DONNEES page = ' + this.page);
-          this.ngZone.run(() => {
-            if (!this.hasNextPage) return;
-            this.page = this.nextPage;
-            this.getAssignmentsFromServicePourScrollInfini();
-          });
+        console.log('On demande de nouveaux assignments');
+        // on va faire une requête pour demander les assignments suivants
+        // et on va concatener le resultat au tableau des assignments courants
+        console.log('je CHARGE DE NOUVELLES DONNEES page = ' + this.page);
+        this.ngZone.run(() => {
+          if (!this.hasNextPage) return;
+          this.page = this.nextPage;
+          this.getAssignmentsFromServicePourScrollInfini();
+        });
       });
   }
 
   getAssignmentsFromService() {
+    this.isLoading = true;
+    this.spinner.show();
     // on récupère les assignments depuis le service
     this.assignmentsService
       .getAssignmentsPagines(this.page, this.limit)
@@ -129,6 +139,8 @@ export class AssignmentsComponent implements OnInit {
         this.prevPage = data.prevPage;
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
+        this.isLoading = false;
+        this.spinner.hide();
       });
     console.log('Requête envoyée');
   }
@@ -160,18 +172,14 @@ export class AssignmentsComponent implements OnInit {
     this.page = this.nextPage;
     this.getAssignmentsFromService();
   }
-
   premierePage() {
     this.page = 1;
     this.getAssignmentsFromService();
   }
-
   dernierePage() {
     this.page = this.totalPages;
     this.getAssignmentsFromService();
   }
-
-  // Pour le composant angular material paginator
   handlePageEvent(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
