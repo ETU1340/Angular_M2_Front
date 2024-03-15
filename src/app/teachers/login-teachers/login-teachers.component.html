@@ -1,0 +1,37 @@
+<h2>Page de Connexion</h2>
+<form
+  ngForm
+  #teacherForm
+  (submit)="onSubmit($event); teacherForm.reset()"
+  class="form"
+>
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Nom"
+      required
+      [(ngModel)]="nameTeacher"
+      name="nom"
+    />
+  </mat-form-field>
+
+  <mat-form-field>
+    <input
+      matInput
+      placeholder="Mot de passe"
+      type = "password"
+      required
+      [(ngModel)]="mdpTeacher"
+      name="mdp"
+    />
+  </mat-form-field>
+
+  <button
+    mat-stroked-button
+    color="primary"
+    [disabled]="nameTeacher == '' || mdpTeacher == '' "
+  >
+ Connexion
+  </button>
+  <div style="color: red;">{{ errorMessage }}</div>
+</form>
