@@ -5,16 +5,24 @@ import { AssignmentDetailComponent } from './assignments/assignment-detail/assig
 import { LoginComponent } from './teachers/login-teachers/login-teachers.component';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { authGuard } from './shared/auth.guard';
+import { AppComponent } from './app.component';
+import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: 'home', component: AssignmentsComponent },
-  { path: 'add', component: AddAssignmentComponent },
-  { path: 'assignment/:id', component: AssignmentDetailComponent },
   {
-    path: 'assignment/:id/edit',
-    component: EditAssignmentComponent,
-    canActivate: [authGuard],
+    path: 'app',
+    component: AppLayoutComponent,
+    children: [
+      { path: '', component: AssignmentsComponent },
+      { path: 'add', component: AddAssignmentComponent },
+      { path: 'assignment/:id', component: AssignmentDetailComponent },
+      {
+        path: 'assignment/:id/edit',
+        component: EditAssignmentComponent,
+        canActivate: [authGuard],
+      },
+    ],
   },
 ];

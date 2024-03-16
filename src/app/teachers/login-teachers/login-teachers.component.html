@@ -19,7 +19,7 @@
     <input
       matInput
       placeholder="Mot de passe"
-      type = "password"
+      type="password"
       required
       [(ngModel)]="mdpTeacher"
       name="mdp"
@@ -29,9 +29,9 @@
   <button
     mat-stroked-button
     color="primary"
-    [disabled]="nameTeacher == '' || mdpTeacher == '' "
+    [disabled]="nameTeacher == '' || mdpTeacher == ''"
   >
- Connexion
+    Connexion
   </button>
-  <div style="color: red;">{{ errorMessage }}</div>
+  <div style="color: red">{{ errorMessage }}</div>
 </form>
