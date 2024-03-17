@@ -78,25 +78,16 @@ export class AssignmentsComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('ngOnInit assignments, appelée AVANT affichage du composant');
     this.getAssignmentsFromService();
   }
 
   ngAfterViewInit() {
-    console.log(' ----- after view init ----');
-
     if (!this.scroller) return;
 
-    // on s'abonne à l'évènement scroll du virtual scroller
     this.scroller
       .elementScrolled()
       .pipe(
-        tap(() => {
-          //const dist = this.scroller.measureScrollOffset('bottom');
-          /*console.log(
-            'dans le tap, distance par rapport au bas de la fenêtre = ' + dist
-          );*/
-        }),
+        tap(() => {}),
         map((event) => {
           return this.scroller.measureScrollOffset('bottom');
         }),

@@ -1,37 +1,82 @@
-<h1>Ajout d'un assignment</h1>
-<form
-  ngForm
-  #assignmentForm
-  (submit)="onSubmit($event); assignmentForm.reset()"
-  class="form"
+@if (showModal) {
+<div
+  class="w-full h-full bg-black bg-opacity-75 absolute top-0 left-0 z-50 flex items-center justify-center py-10"
 >
-  <mat-form-field>
-    <input
-      matInput
-      placeholder="Nom"
-      required
-      [(ngModel)]="nomAssignment"
-      name="nom"
-    />
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>Date de rendu</mat-label>
-    <input
-      matInput
-      [matDatepicker]="picker"
-      [(ngModel)]="dateDeRendu"
-      name="date"
-    />
-    <mat-hint>dd/MM/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+  <div class="w-8/12 bg-white rounded-xl p-10 max-h-full h-full flex flex-col">
+    <button
+      (click)="toggleModel()"
+      class="flex justify-end text-red-500 pb-2 font-bold"
+    >
+      X Fermer
+    </button>
+    <h1 class="mt-5">Liste des etudiants</h1>
+    <div class="flex-1 grid grid-cols-2 gap-5 overflow-y-scroll">
+      @for (item of students; track $index) {
+      <app-student-card
+        class="w-full"
+        [name]="item.name"
+        [photo]="item.photo"
+        [sid]="'' + ($index + 1)"
+        (click)="setSelectedStudent($index)"
+      />
+      }
+    </div>
+  </div>
+</div>
+}
 
-  <button
-    mat-stroked-button
-    color="primary"
-    [disabled]="nomAssignment == '' || dateDeRendu === undefined"
+<div class="">
+  <h1>Ajout d'un assignment</h1>
+  <form
+    ngForm
+    #assignmentForm
+    (submit)="onSubmit($event); assignmentForm.reset()"
+    class="form"
   >
-    Ajouter un devoir
-  </button>
-</form>
+    @if (assignedStudent) {
+    <div>
+      {{ assignedStudent.name }}
+    </div>
+    } @else{
+    <div
+      (click)="toggleModel()"
+      class="h-40 border border-dashed rounded-md flex justify-center items-center border-slate-900 bg-white font-bold"
+    >
+      Select student
+    </div>
+    }
+
+    <mat-form-field class="mt-5">
+      <input
+        matInput
+        placeholder="Nom"
+        required
+        [(ngModel)]="nomAssignment"
+        name="nom"
+      />
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Date de rendu</mat-label>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        [(ngModel)]="dateDeRendu"
+        name="date"
+      />
+      <mat-hint>dd/MM/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button
+      mat-stroked-button
+      color="primary"
+      [disabled]="nomAssignment == '' || dateDeRendu === undefined"
+    >
+      Ajouter un devoir
+    </button>
+  </form>
+</div>

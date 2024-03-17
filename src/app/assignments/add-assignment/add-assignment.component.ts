@@ -1,40 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {provideNativeDateAdapter} from '@angular/material/core';
-
+import { provideNativeDateAdapter } from '@angular/material/core';
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../shared/assignments.service';
 import { Router } from '@angular/router';
+import { StudentCardComponent } from '../../students/student-card/student-card.component';
+import { StudentsService } from '../../shared/students.service';
 
 @Component({
   selector: 'app-add-assignment',
   standalone: true,
   providers: [provideNativeDateAdapter()],
+  templateUrl: './add-assignment.component.html',
+  styleUrl: './add-assignment.component.css',
   imports: [
     FormsModule,
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
     MatButtonModule,
+    StudentCardComponent,
   ],
-  templateUrl: './add-assignment.component.html',
-  styleUrl: './add-assignment.component.css',
 })
-export class AddAssignmentComponent {
+export class AddAssignmentComponent implements OnInit {
   // champs du formulaire
   nomAssignment = '';
   dateDeRendu = undefined;
+  assignedStudent: { name: string; photo: string } | null = null;
+  // modal controller
+  showModal = false;
 
-  constructor(private assignmentsService: AssignmentsService,
-              private router:Router) {}
-
+  //
+  students: { name: string; photo: string }[] = [];
+  constructor(
+    private assignmentsService: AssignmentsService,
+    private studentsService: StudentsService,
+    private router: Router
+  ) {}
+  ngOnInit(): void {
+    this.students = this.studentsService.getStudents();
+    console.log(this.students);
+  }
   onSubmit(event: any) {
-    if((this.nomAssignment == '') || (this.dateDeRendu === undefined)) return;
-
+    if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
     // on crée un nouvel assignment
     let nouvelAssignment = new Assignment();
     // on genere un id aléatoire (plus tard ce sera fait coté serveur par
@@ -49,10 +61,16 @@ export class AddAssignmentComponent {
       .addAssignment(nouvelAssignment)
       .subscribe((reponse) => {
         console.log(reponse);
-       // On navigue pour afficher la liste des assignments
-       // en utilisant le router de manière programmatique
+        // On navigue pour afficher la liste des assignments
+        // en utilisant le router de manière programmatique
         this.router.navigate(['/home']);
       });
   }
-
+  toggleModel() {
+    this.showModal = !this.showModal;
+  }
+  setSelectedStudent(index: number) {
+    this.assignedStudent = this.students[index];
+    this.toggleModel();
+  }
 }
