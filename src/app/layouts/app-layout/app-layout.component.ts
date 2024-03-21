@@ -49,6 +49,7 @@ export class AppLayoutComponent {
   login() {
     // on utilise le service d'autentification
     // pour se connecter ou se déconnecter
+    localStorage.removeItem('login');
     this.router.navigate(['/login']);
     // on navigue vers la page d'accueil
   }

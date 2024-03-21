@@ -39,7 +39,8 @@ export class LoginComponent {
         console.log(reponse);
       if (reponse !== false) {
         this.errorMessage='';
-        this.router.navigate(['/home']);
+        localStorage.setItem('login',reponse.isAdmin);
+        this.router.navigate(['/app']);
       } else {
         this.errorMessage = 'Information incorrecte';
         return;
