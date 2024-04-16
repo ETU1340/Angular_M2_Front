@@ -10,6 +10,8 @@ import { AssignmentsService } from '../../shared/assignments.service';
 import { Router } from '@angular/router';
 import { StudentCardComponent } from '../../students/student-card/student-card.component';
 import { StudentsService } from '../../shared/students.service';
+import { MatSelectModule } from '@angular/material/select';
+import { SubjectsService } from '../../shared/subjects.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -24,6 +26,7 @@ import { StudentsService } from '../../shared/students.service';
     MatDatepickerModule,
     MatButtonModule,
     StudentCardComponent,
+    MatSelectModule,
   ],
 })
 export class AddAssignmentComponent implements OnInit {
@@ -31,19 +34,22 @@ export class AddAssignmentComponent implements OnInit {
   nomAssignment = '';
   dateDeRendu = undefined;
   assignedStudent: { name: string; photo: string } | null = null;
+  subject: string = '';
   // modal controller
   showModal = false;
 
   //
   students: { name: string; photo: string }[] = [];
+  subjects: string[] = [];
   constructor(
     private assignmentsService: AssignmentsService,
     private studentsService: StudentsService,
+    private subjectsService: SubjectsService,
     private router: Router
   ) {}
   ngOnInit(): void {
     this.students = this.studentsService.getStudents();
-    console.log(this.students);
+    this.subjects = this.subjectsService.getSubjects();
   }
   onSubmit(event: any) {
     if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
@@ -66,11 +72,11 @@ export class AddAssignmentComponent implements OnInit {
         this.router.navigate(['/home']);
       });
   }
-  toggleModel() {
+  toggleModal() {
     this.showModal = !this.showModal;
   }
   setSelectedStudent(index: number) {
     this.assignedStudent = this.students[index];
-    this.toggleModel();
+    this.toggleModal();
   }
 }

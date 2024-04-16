@@ -4,7 +4,7 @@
 >
   <div class="w-8/12 bg-white rounded-xl p-10 max-h-full h-full flex flex-col">
     <button
-      (click)="toggleModel()"
+      (click)="toggleModal()"
       class="flex justify-end text-red-500 pb-2 font-bold"
     >
       X Fermer
@@ -33,23 +33,44 @@
     (submit)="onSubmit($event); assignmentForm.reset()"
     class="form"
   >
-    @if (assignedStudent) {
-    <div>
-      {{ assignedStudent.name }}
+    <div class="flex gap-5">
+      <div class="flex-1">
+        <mat-form-field class="w-full">
+          <mat-label>Matiere : </mat-label>
+          <mat-select>
+            @for (subject of subjects; track $index) {
+            <mat-option [value]="$index">{{ subject }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="flex-1">
+        @if (assignedStudent) {
+        <div class="mx-auto">
+          <img
+            src="{{ assignedStudent.photo }}"
+            class="w-52 h-52 rounded-full mx-auto"
+            alt=""
+          />
+          <h4 class="text-center">
+            Assigned student : {{ assignedStudent.name }}
+          </h4>
+        </div>
+        } @else{
+        <div
+          (click)="toggleModal()"
+          class="h-40 border border-dashed rounded-md flex justify-center items-center border-slate-900 bg-white font-bold"
+        >
+          Select student
+        </div>
+        }
+      </div>
     </div>
-    } @else{
-    <div
-      (click)="toggleModel()"
-      class="h-40 border border-dashed rounded-md flex justify-center items-center border-slate-900 bg-white font-bold"
-    >
-      Select student
-    </div>
-    }
 
     <mat-form-field class="mt-5">
       <input
         matInput
-        placeholder="Nom"
+        placeholder="Assignment name"
         required
         [(ngModel)]="nomAssignment"
         name="nom"
@@ -63,7 +84,7 @@
         [(ngModel)]="dateDeRendu"
         name="date"
       />
-      <mat-hint>dd/MM/YYYY</mat-hint>
+      <mat-hint class="mt-2">dd/MM/YYYY</mat-hint>
       <mat-datepicker-toggle
         matIconSuffix
         [for]="picker"
@@ -75,6 +96,7 @@
       mat-stroked-button
       color="primary"
       [disabled]="nomAssignment == '' || dateDeRendu === undefined"
+      class="mt-10"
     >
       Ajouter un devoir
     </button>
