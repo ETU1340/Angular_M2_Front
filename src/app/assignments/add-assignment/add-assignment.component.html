@@ -95,8 +95,9 @@
     <button
       mat-stroked-button
       color="primary"
-      [disabled]="nomAssignment == '' || dateDeRendu === undefined"
-      class="mt-10"
+      [disabled]="
+        nomAssignment == '' || dateDeRendu === undefined || !isAdmin()
+      "
     >
       Ajouter un devoir
     </button>

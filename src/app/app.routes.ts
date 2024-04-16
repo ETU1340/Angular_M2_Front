@@ -9,15 +9,15 @@ import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/app', pathMatch: 'full' },
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   {
     path: 'app',
     component: AppLayoutComponent,
     children: [
-      { path: '', component: AssignmentsComponent },
-      { path: 'add', component: AddAssignmentComponent },
-      { path: 'assignment/:id', component: AssignmentDetailComponent },
+      { path: '', component: AssignmentsComponent, canActivate: [authGuard] },
+      { path: 'add', component: AddAssignmentComponent, canActivate: [authGuard] },
+      { path: 'assignment/:id', component: AssignmentDetailComponent  ,canActivate: [authGuard]},
       {
         path: 'assignment/:id/edit',
         component: EditAssignmentComponent,

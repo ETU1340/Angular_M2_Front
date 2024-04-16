@@ -12,6 +12,7 @@ import { StudentCardComponent } from '../../students/student-card/student-card.c
 import { StudentsService } from '../../shared/students.service';
 import { MatSelectModule } from '@angular/material/select';
 import { SubjectsService } from '../../shared/subjects.service';
+import { AuthService } from '../../shared/auth.service';
 
 @Component({
   selector: 'app-add-assignment',
@@ -43,6 +44,7 @@ export class AddAssignmentComponent implements OnInit {
   subjects: string[] = [];
   constructor(
     private assignmentsService: AssignmentsService,
+    private authService: AuthService,
     private studentsService: StudentsService,
     private subjectsService: SubjectsService,
     private router: Router
@@ -69,7 +71,7 @@ export class AddAssignmentComponent implements OnInit {
         console.log(reponse);
         // On navigue pour afficher la liste des assignments
         // en utilisant le router de manière programmatique
-        this.router.navigate(['/home']);
+        this.router.navigate(['/app']);
       });
   }
   toggleModal() {
@@ -78,5 +80,13 @@ export class AddAssignmentComponent implements OnInit {
   setSelectedStudent(index: number) {
     this.assignedStudent = this.students[index];
     this.toggleModal();
+  }
+
+  isAdmin() {
+    return this.authService.isAdmin();
+  }
+
+  isAdmin() {
+    return this.authService.isAdmin();
   }
 }
