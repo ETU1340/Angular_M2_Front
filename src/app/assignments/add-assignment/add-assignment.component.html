@@ -14,8 +14,8 @@
       @for (item of students; track $index) {
       <app-student-card
         class="w-full"
-        [name]="item.name"
-        [photo]="item.photo"
+        [name]="item.name.last"
+        [photo]="item.picture.medium"
         [sid]="'' + ($index + 1)"
         (click)="setSelectedStudent($index)"
       />
@@ -48,12 +48,12 @@
         @if (assignedStudent) {
         <div class="mx-auto">
           <img
-            src="{{ assignedStudent.photo }}"
+            src="{{ assignedStudent.picture.medium }}"
             class="w-52 h-52 rounded-full mx-auto"
             alt=""
           />
           <h4 class="text-center">
-            Assigned student : {{ assignedStudent.name }}
+            Assigned student : {{ assignedStudent.name.first }}
           </h4>
         </div>
         } @else{

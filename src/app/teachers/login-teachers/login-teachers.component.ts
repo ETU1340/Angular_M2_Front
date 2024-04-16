@@ -4,8 +4,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
-import {provideNativeDateAdapter} from '@angular/material/core';
-
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 import { AuthService } from '../../shared/auth.service';
 import { Router } from '@angular/router';
@@ -28,27 +27,23 @@ export class LoginComponent {
   // champs du formulaire
   nameTeacher = '';
   mdpTeacher = undefined;
-  errorMessage='';
+  errorMessage = '';
 
-  constructor(private authService: AuthService,
-              private router:Router) {}
+  constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(event: any) {
-    if((this.nameTeacher == '') || (this.mdpTeacher === undefined)) return;
-      this.authService.logInConnexion(this.nameTeacher,this.mdpTeacher).subscribe((reponse) => {
-        console.log(reponse);
-      if (reponse !== false) {
-        this.errorMessage='';
-        localStorage.setItem('login',reponse.isAdmin);
-        this.router.navigate(['/app']);
-      } else {
-        this.errorMessage = 'Information incorrecte';
-        return;
-      }
-      
-    });
-    
-     
+    if (this.nameTeacher == '' || this.mdpTeacher === undefined) return;
+    this.authService
+      .logInConnexion(this.nameTeacher, this.mdpTeacher)
+      .subscribe((reponse) => {
+        if (reponse !== false) {
+          this.errorMessage = '';
+          localStorage.setItem('login', reponse.isAdmin);
+          this.router.navigate(['/app']);
+        } else {
+          this.errorMessage = 'Information incorrecte';
+          return;
+        }
+      });
   }
-
 }

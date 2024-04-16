@@ -13,7 +13,7 @@ import { StudentsService } from '../../shared/students.service';
 import { MatSelectModule } from '@angular/material/select';
 import { SubjectsService } from '../../shared/subjects.service';
 import { AuthService } from '../../shared/auth.service';
-
+import { Student } from './../../shared/interfaces/person.interface';
 @Component({
   selector: 'app-add-assignment',
   standalone: true,
@@ -34,13 +34,13 @@ export class AddAssignmentComponent implements OnInit {
   // champs du formulaire
   nomAssignment = '';
   dateDeRendu = undefined;
-  assignedStudent: { name: string; photo: string } | null = null;
+  assignedStudent: Student | null = null;
   subject: string = '';
   // modal controller
   showModal = false;
 
   //
-  students: { name: string; photo: string }[] = [];
+  students: Student[] = [];
   subjects: string[] = [];
   constructor(
     private assignmentsService: AssignmentsService,
@@ -50,27 +50,21 @@ export class AddAssignmentComponent implements OnInit {
     private router: Router
   ) {}
   ngOnInit(): void {
-    this.students = this.studentsService.getStudents();
-    this.subjects = this.subjectsService.getSubjects();
+    this.studentsService.getStudents().subscribe((data) => {
+      this.students = data;
+    });
+    // this.subjects = this.subjectsService.getSubjects();
   }
   onSubmit(event: any) {
     if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
-    // on crée un nouvel assignment
     let nouvelAssignment = new Assignment();
-    // on genere un id aléatoire (plus tard ce sera fait coté serveur par
-    // une base de données)
     nouvelAssignment.nom = this.nomAssignment;
     nouvelAssignment.dateDeRendu = this.dateDeRendu;
     nouvelAssignment.rendu = false;
-
-    // on utilise le service pour directement ajouter
-    // le nouvel assignment dans le tableau
     this.assignmentsService
       .addAssignment(nouvelAssignment)
       .subscribe((reponse) => {
         console.log(reponse);
-        // On navigue pour afficher la liste des assignments
-        // en utilisant le router de manière programmatique
         this.router.navigate(['/app']);
       });
   }
@@ -80,10 +74,6 @@ export class AddAssignmentComponent implements OnInit {
   setSelectedStudent(index: number) {
     this.assignedStudent = this.students[index];
     this.toggleModal();
-  }
-
-  isAdmin() {
-    return this.authService.isAdmin();
   }
 
   isAdmin() {
