@@ -26,7 +26,7 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   // champs du formulaire
   nameTeacher = '';
-  mdpTeacher = undefined;
+  mdpTeacher = '';
   errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}

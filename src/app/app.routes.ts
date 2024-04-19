@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
 import { AssignmentDetailComponent } from './assignments/assignment-detail/assignment-detail.component';
+import { RenderComponent } from './render/render.component';
 import { LoginComponent } from './teachers/login-teachers/login-teachers.component';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { authGuard } from './shared/auth.guard';
@@ -17,6 +18,7 @@ export const routes: Routes = [
     children: [
       { path: '', component: AssignmentsComponent, canActivate: [authGuard] },
       { path: 'add', component: AddAssignmentComponent, canActivate: [authGuard] },
+      { path: 'render', component: RenderComponent, canActivate: [authGuard] },
       { path: 'assignment/:id', component: AssignmentDetailComponent  ,canActivate: [authGuard]},
       {
         path: 'assignment/:id/edit',

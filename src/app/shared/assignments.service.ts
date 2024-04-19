@@ -15,12 +15,21 @@ export class AssignmentsService {
   assignments: Assignment[] = [];
 
   constructor(private logService: LoggingService, private http: HttpClient) {}
-  //uri = 'http://localhost:8010/api/assignments';
-  uri = 'https://angularmbdsmadagascar2024.onrender.com/api/assignments';
+  uri = 'http://localhost:8010/api/assignments';
+  //uri = 'https://angularmbdsmadagascar2024.onrender.com/api/assignments';
+
+
 
   // retourne tous les assignments
   getAssignments(): Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.uri);
+  }
+  getAssignmentReturned(): Observable<Assignment[]> {
+    return this.http.get<Assignment[]>('http://localhost:8010/api/assignmentReturned');
+  }
+
+  getAssignmentNotReturned(): Observable<Assignment[]> {
+    return this.http.get<Assignment[]>('http://localhost:8010/api/assignmentNotReturned');
   }
 
   getAssignmentsPagines(page: number, limit: number): Observable<any> {

@@ -1,0 +1,84 @@
+@if (showModal) {
+  <div
+    class="w-full h-full bg-black bg-opacity-75 absolute top-0 left-0 z-50 flex items-center justify-center py-10"
+  >
+    <div class="w-8/12 bg-white rounded-xl p-10 max-h-full h-full flex flex-col">
+      <button
+        (click)="toggleModal()"
+        class="flex justify-end text-red-500 pb-2 font-bold"
+      >
+        X Fermer
+      </button>
+      <h1 class="mt-5">Noté le devoir</h1>
+      <form
+      ngForm
+      #teacherForm
+      (submit)="onSubmit();"
+      class="form"
+    >
+      <mat-form-field>
+        <input
+        matInput
+        placeholder="Note"
+        required
+        [(ngModel)]="noteTeacher"
+        name="note"
+      />
+      </mat-form-field>
+
+      
+      <mat-form-field>
+      <input
+      matInput
+      placeholder="Remarque"
+      required
+      [(ngModel)]="remarkTeacher"
+      name="remark"
+    />
+      </mat-form-field>
+
+      <button
+        mat-stroked-button
+        color="primary"
+        [disabled]="noteTeacher == '' || remarkTeacher == ''"
+        style="padding: 10px"
+      >
+        Rendre
+      </button>
+      </form>
+    </div>
+  </div>
+  }
+
+<div class="example-container">
+  <h2>Assignements</h2>
+
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="assignmentNotReturned"
+    [cdkDropListConnectedTo]="[doneList]"
+    class="example-list">
+
+    <div class="example-box" *ngFor="let item of assignmentNotReturned" cdkDrag>{{item.nom}}</div>
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>Assignements rendu</h2>
+
+  <div
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="assignmentReturned"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of assignmentReturned" cdkDrag>{{item.nom}}</div>
+  </div>
+</div>
+
+
+
+<!-- Copyright 2019 Google Inc. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->
