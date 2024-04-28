@@ -1,23 +1,21 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from './auth.service';
+import { AuthService } from './services/auth.service';
 
 export const authGuard: CanActivateFn = (route, state) => {
-
   // injection du service d'authentification
   const authService = inject(AuthService);
   // injection du router
   const router = inject(Router);
-  return authService.isLoggedIn().then(islogged => {
+  return authService.isLoggedIn().then((islogged) => {
     if (islogged) {
-      console.log("GUARD: Navigation autorisée");
+      console.log('GUARD: Navigation autorisée');
       return true;
     } else {
-      console.log("GUARD: Navigation NON autorisée");
+      console.log('GUARD: Navigation NON autorisée');
       router.navigate(['/login']);
       return false;
     }
-    
   });
   //return authService.loggedIn;
 
@@ -40,5 +38,4 @@ export const authGuard: CanActivateFn = (route, state) => {
       }
     );
     */
-
 };

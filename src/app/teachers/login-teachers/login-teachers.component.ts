@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 
-import { AuthService } from '../../shared/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -25,8 +25,8 @@ import { Router } from '@angular/router';
 })
 export class LoginComponent {
   // champs du formulaire
-  nameTeacher = '';
-  mdpTeacher = '';
+  nameTeacher = 'sadpeacock700';
+  mdpTeacher = 'jellybea';
   errorMessage = '';
 
   constructor(private authService: AuthService, private router: Router) {}

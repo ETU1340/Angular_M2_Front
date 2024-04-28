@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Assignment } from '../assignments/assignment.model';
+import { Assignment } from '../../assignments/assignment.model';
 import { Observable, forkJoin, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
 
 // importation des données de test
-import { bdInitialAssignments } from './data';
+import { bdInitialAssignments } from '../data';
 
 @Injectable({
   providedIn: 'root',
@@ -18,18 +18,20 @@ export class AssignmentsService {
   uri = 'http://localhost:8010/api/assignments';
   //uri = 'https://angularmbdsmadagascar2024.onrender.com/api/assignments';
 
-
-
   // retourne tous les assignments
   getAssignments(): Observable<Assignment[]> {
     return this.http.get<Assignment[]>(this.uri);
   }
   getAssignmentReturned(): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>('http://localhost:8010/api/assignmentReturned');
+    return this.http.get<Assignment[]>(
+      'http://localhost:8010/api/assignmentReturned'
+    );
   }
 
   getAssignmentNotReturned(): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>('http://localhost:8010/api/assignmentNotReturned');
+    return this.http.get<Assignment[]>(
+      'http://localhost:8010/api/assignmentNotReturned'
+    );
   }
 
   getAssignmentsPagines(page: number, limit: number): Observable<any> {

@@ -6,14 +6,15 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Assignment } from '../assignment.model';
-import { AssignmentsService } from '../../shared/assignments.service';
+import { AssignmentsService } from '../../shared/services/assignments.service';
 import { Router } from '@angular/router';
 import { StudentCardComponent } from '../../students/student-card/student-card.component';
-import { StudentsService } from '../../shared/students.service';
+import { StudentsService } from '../../shared/services/students.service';
 import { MatSelectModule } from '@angular/material/select';
-import { SubjectsService } from '../../shared/subjects.service';
-import { AuthService } from '../../shared/auth.service';
+import { SubjectsService } from '../../shared/services/subjects.service';
+import { AuthService } from '../../shared/services/auth.service';
 import { Student } from './../../shared/interfaces/person.interface';
+import { ISubject } from '../../shared/interfaces/subject.interface';
 @Component({
   selector: 'app-add-assignment',
   standalone: true,
@@ -35,13 +36,14 @@ export class AddAssignmentComponent implements OnInit {
   nomAssignment = '';
   dateDeRendu = undefined;
   assignedStudent: Student | null = null;
+  selectedSubject: ISubject | null = null;
   subject: string = '';
   // modal controller
   showModal = false;
 
   //
   students: Student[] = [];
-  subjects: string[] = [];
+  subjects: ISubject[] = [];
   constructor(
     private assignmentsService: AssignmentsService,
     private authService: AuthService,
@@ -52,6 +54,9 @@ export class AddAssignmentComponent implements OnInit {
   ngOnInit(): void {
     this.studentsService.getStudents().subscribe((data) => {
       this.students = data;
+    });
+    this.subjectsService.getSubjects().subscribe((data) => {
+      this.subjects = data;
     });
     // this.subjects = this.subjectsService.getSubjects();
   }
@@ -74,6 +79,9 @@ export class AddAssignmentComponent implements OnInit {
   setSelectedStudent(index: number) {
     this.assignedStudent = this.students[index];
     this.toggleModal();
+  }
+  subjectOnChange(event: any) {
+    this.selectedSubject = this.subjects[event.value];
   }
 
   isAdmin() {

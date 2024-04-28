@@ -37,12 +37,36 @@
       <div class="flex-1">
         <mat-form-field class="w-full">
           <mat-label>Matiere : </mat-label>
-          <mat-select>
+          <mat-select (selectionChange)="subjectOnChange($event)">
             @for (subject of subjects; track $index) {
-            <mat-option [value]="$index">{{ subject }}</mat-option>
+            <mat-option [value]="$index">{{ subject.title }}</mat-option>
             }
           </mat-select>
         </mat-form-field>
+        @if (selectedSubject) {
+        <div class="flex w-full">
+          <div class="flex items-center flex-1 gap-4">
+            <div class="w-12 h-12">
+              <img
+                src="{{ selectedSubject.picture }}"
+                class="object-fill w-full h-full m-0"
+                alt=""
+              />
+            </div>
+            <p>{{ selectedSubject.title }}</p>
+          </div>
+          <div class="flex items-center flex-1 gap-4">
+            <div class="w-12 h-12">
+              <img
+                src="{{ selectedSubject.teacher.picture }}"
+                class="object-fill w-full h-full m-0"
+                alt=""
+              />
+            </div>
+            <p>{{ selectedSubject.teacher.fullName }}</p>
+          </div>
+        </div>
+        }
       </div>
       <div class="flex-1">
         @if (assignedStudent) {

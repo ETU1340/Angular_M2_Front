@@ -13,8 +13,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { RouterOutlet, RouterLink, Router } from '@angular/router';
 import { AssignmentsComponent } from '../../assignments/assignments.component';
 import { TeachersComponent } from '../../teachers/teachers.component';
-import { AssignmentsService } from '../../shared/assignments.service';
-import { AuthService } from '../../shared/auth.service';
+import { AssignmentsService } from '../../shared/services/assignments.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-app-layout',

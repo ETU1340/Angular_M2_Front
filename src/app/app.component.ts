@@ -7,8 +7,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AssignmentsComponent } from './assignments/assignments.component';
 import { TeachersComponent } from './teachers/teachers.component';
-import { AuthService } from './shared/auth.service';
-import { AssignmentsService } from './shared/assignments.service';
+import { AuthService } from './shared/services/auth.service';
+import { AssignmentsService } from './shared/services/assignments.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
@@ -29,7 +29,7 @@ import { heroHome } from '@ng-icons/heroicons/outline';
     AssignmentsComponent,
     MatSidenavModule,
     NgIconComponent,
-    TeachersComponent
+    TeachersComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -51,9 +51,8 @@ export class AppComponent {
     // on utilise le service d'autentification
     // pour se connecter ou se déconnecter
     this.router.navigate(['/login']);
-      // on navigue vers la page d'accueil
-    }
-  
+    // on navigue vers la page d'accueil
+  }
 
   genererDonneesDeTest() {
     // on utilise le service
