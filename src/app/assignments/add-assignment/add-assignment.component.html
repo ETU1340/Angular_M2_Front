@@ -37,7 +37,7 @@
       <div class="flex-1">
         <mat-form-field class="w-full">
           <mat-label>Matiere : </mat-label>
-          <mat-select (selectionChange)="subjectOnChange($event)">
+          <mat-select (selectionChange)="setSubject($event)">
             @for (subject of subjects; track $index) {
             <mat-option [value]="$index">{{ subject.title }}</mat-option>
             }
@@ -80,7 +80,7 @@
             Assigned student : {{ assignedStudent.name.first }}
           </h4>
         </div>
-        } @else{
+        } @else {
         <div
           (click)="toggleModal()"
           class="h-40 border border-dashed rounded-md flex justify-center items-center border-slate-900 bg-white font-bold"

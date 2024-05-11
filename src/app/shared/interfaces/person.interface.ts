@@ -17,7 +17,7 @@ interface Location {
   postcode: number;
 }
 
-interface Name {
+export interface Name {
   title: string;
   first: string;
   last: string;
@@ -50,6 +50,7 @@ interface Picture {
 }
 
 export interface Student {
+  _id: string;
   location: Location;
   gender: string;
   name: Name;

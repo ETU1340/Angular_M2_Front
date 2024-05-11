@@ -60,13 +60,13 @@ export class AppComponent {
     this.assignmentsService.peuplerBD();
     */
     // VERSION AVEC Observable
-    this.assignmentsService.peuplerBDavecForkJoin().subscribe(() => {
-      console.log(
-        'Données générées, on rafraichit la page pour voir la liste à jour !'
-      );
-      window.location.reload();
-      // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
-      // this.router.navigate(['/home'], {replaceUrl:true});
-    });
+    // this.assignmentsService.peuplerBDavecForkJoin().subscribe(() => {
+    //   console.log(
+    //     'Données générées, on rafraichit la page pour voir la liste à jour !'
+    //   );
+    //   window.location.reload();
+    //   // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
+    //   // this.router.navigate(['/home'], {replaceUrl:true});
+    // });
   }
 }

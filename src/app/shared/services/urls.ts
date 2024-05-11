@@ -6,4 +6,7 @@ export const urls = {
   subjects: {
     get: baseurl + 'subjects',
   },
+  assignments: {
+    post: baseurl + 'assignments',
+  },
 };
