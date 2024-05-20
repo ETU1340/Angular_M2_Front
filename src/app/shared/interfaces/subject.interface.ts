@@ -12,6 +12,7 @@ export interface ISubject {
 }
 export interface IAssignment {
   dateRendu: Date;
+  rendu: Boolean;
   name: string;
   student: {
     _id: string;

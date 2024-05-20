@@ -67,6 +67,7 @@ export class AddAssignmentComponent implements OnInit {
     if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
     let nouvelAssignment: IAssignment = {
       dateRendu: this.dateDeRendu,
+      rendu:false,
       name: this.nomAssignment,
       student: {
         _id: this.assignedStudent!._id,
