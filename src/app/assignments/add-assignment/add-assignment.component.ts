@@ -1,5 +1,6 @@
+import { FormsModule ,ReactiveFormsModule  } from '@angular/forms';
+import { CommonModule } from '@angular/common';  
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,13 +20,15 @@ import {
   ISubject,
 } from '../../shared/interfaces/subject.interface';
 @Component({
-  selector: 'app-add-assignment',
-  standalone: true,
+  selector: 'app-add-assignment-stepper',
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-assignment.component.html',
-  styleUrl: './add-assignment.component.css',
+  styleUrls: ['./add-assignment.component.css'],
+  standalone: true,
   imports: [
     FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
@@ -35,81 +38,94 @@ import {
   ],
 })
 export class AddAssignmentComponent implements OnInit {
-  // champs du formulaire
-  nomAssignment = '';
-  dateDeRendu = undefined;
-  assignedStudent: Student | null = null;
-  selectedSubject: ISubject | null = null;
-  subject: string = '';
-  // modal controller
-  showModal = false;
+  currentStep: number = 1;
+ // champs du formulaire
+ nomAssignment = '';
+ dateDeRendu = undefined;
+ assignedStudent: Student | null = null;
+ selectedSubject: ISubject | null = null;
+ subject: string = '';
+ // modal controller
+ showModal = false;
 
-  //
-  students: Student[] = [];
-  subjects: ISubject[] = [];
-  constructor(
-    private assignmentsService: AssignmentsService,
-    private authService: AuthService,
-    private studentsService: StudentsService,
-    private subjectsService: SubjectsService,
-    private router: Router
-  ) {}
-  ngOnInit(): void {
-    this.studentsService.getStudents().subscribe((data) => {
-      this.students = data;
-    });
-    this.subjectsService.getSubjects().subscribe((data) => {
-      this.subjects = data;
-    });
-    // this.subjects = this.subjectsService.getSubjects();
-  }
-  onSubmit(event: any) {
-    if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
-    let nouvelAssignment: IAssignment = {
-      dateRendu: this.dateDeRendu,
-      rendu:false,
-      name: this.nomAssignment,
-      student: {
-        _id: this.assignedStudent!._id,
-        name:
-          this.assignedStudent!.name.first +
-          ' ' +
-          this.assignedStudent!.name.last,
-        profile: this.assignedStudent!.picture.thumbnail,
-      },
-      subject: {
-        _id: this.selectedSubject!._id,
-        name: this.selectedSubject!.title,
-        picture: this.selectedSubject!.picture,
-      },
-      teacher: {
-        _id: this.selectedSubject!.teacher._id,
-        fullName: this.selectedSubject!.teacher.fullName,
-        picture: this.selectedSubject!.teacher.picture,
-      },
-    };
+ //
+ students: Student[] = [];
+ subjects: ISubject[] = [];
+ constructor(
+   private assignmentsService: AssignmentsService,
+   private authService: AuthService,
+   private studentsService: StudentsService,
+   private subjectsService: SubjectsService,
+   private router: Router
+ ) {}
+ ngOnInit(): void {
+   this.studentsService.getStudents().subscribe((data) => {
+     this.students = data;
+   });
+   this.subjectsService.getSubjects().subscribe((data) => {
+     this.subjects = data;
+   });
+   // this.subjects = this.subjectsService.getSubjects();
+ }
+ onSubmit(event: any) {
+   if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
+   let nouvelAssignment: IAssignment = {
+     dateRendu: this.dateDeRendu,
+     rendu:false,
+     name: this.nomAssignment,
+     student: {
+       _id: this.assignedStudent!._id,
+       name:
+         this.assignedStudent!.name.first +
+         ' ' +
+         this.assignedStudent!.name.last,
+       profile: this.assignedStudent!.picture.thumbnail,
+     },
+     subject: {
+       _id: this.selectedSubject!._id,
+       name: this.selectedSubject!.title,
+       picture: this.selectedSubject!.picture,
+     },
+     teacher: {
+       _id: this.selectedSubject!.teacher._id,
+       fullName: this.selectedSubject!.teacher.fullName,
+       picture: this.selectedSubject!.teacher.picture,
+     },
+   };
 
-    this.assignmentsService
-      .addAssignment(nouvelAssignment)
-      .subscribe((response) => {
-        console.log(response);
-        // this.router.navigate(['/app']);
-      });
-  }
-  toggleModal() {
-    this.showModal = !this.showModal;
-  }
-  setSelectedStudent(index: number) {
-    this.assignedStudent = this.students[index];
-    console.log(this.assignedStudent);
+   this.assignmentsService
+     .addAssignment(nouvelAssignment)
+     .subscribe((response) => {
+       console.log(response);
+       // this.router.navigate(['/app']);
+     });
+ }
+ toggleModal() {
+   this.showModal = !this.showModal;
+ }
+ setSelectedStudent(index: number) {
+   this.assignedStudent = this.students[index];
+   console.log(this.assignedStudent);
 
-    this.toggleModal();
-  }
-  setSubject(event: any) {
-    this.selectedSubject = this.subjects[event.value];
+   this.toggleModal();
+ }
+ setSubject(event: any) {
+   this.selectedSubject = this.subjects[event.value];
+ }
+
+ isAdmin() {
+   return this.authService.isAdmin();
+ }
+  nextStep() {
+    if (this.currentStep < 3) {
+      this.currentStep++;
+    }
   }
 
-  isAdmin() {
-    return this.authService.isAdmin();
+  previousStep() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
   }
+
 }

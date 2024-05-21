@@ -3,3 +3,6 @@
   flex-direction: column;
   margin:5px;
 }
+.buttonNext {
+  color: green;
+}

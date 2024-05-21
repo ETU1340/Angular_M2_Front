@@ -11,6 +11,9 @@ import { AuthService } from './shared/services/auth.service';
 import { AssignmentsService } from './shared/services/assignments.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
+
+
+
 import {
   bootstrapLayoutSidebarInset,
   bootstrapPlusLg,
@@ -29,7 +32,7 @@ import { heroHome } from '@ng-icons/heroicons/outline';
     AssignmentsComponent,
     MatSidenavModule,
     NgIconComponent,
-    TeachersComponent,
+    TeachersComponent
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -37,6 +40,7 @@ import { heroHome } from '@ng-icons/heroicons/outline';
     provideIcons({ bootstrapLayoutSidebarInset, heroHome, bootstrapPlusLg }),
   ],
 })
+
 export class AppComponent {
   title = 'Application de gestion des assignments';
   showFiller = true;
