@@ -1,5 +1,6 @@
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -19,13 +20,15 @@ import {
   ISubject,
 } from '../../shared/interfaces/subject.interface';
 @Component({
-  selector: 'app-add-assignment',
-  standalone: true,
+  selector: 'app-add-assignment-stepper',
   providers: [provideNativeDateAdapter()],
   templateUrl: './add-assignment.component.html',
-  styleUrl: './add-assignment.component.css',
+  styleUrls: ['./add-assignment.component.css'],
+  standalone: true,
   imports: [
     FormsModule,
+    ReactiveFormsModule,
+    CommonModule,
     MatInputModule,
     MatFormFieldModule,
     MatDatepickerModule,
@@ -35,6 +38,7 @@ import {
   ],
 })
 export class AddAssignmentComponent implements OnInit {
+  currentStep: number = 1;
   // champs du formulaire
   nomAssignment = '';
   dateDeRendu = undefined;
@@ -111,5 +115,16 @@ export class AddAssignmentComponent implements OnInit {
 
   isAdmin() {
     return this.authService.isAdmin();
+  }
+  nextStep() {
+    if (this.currentStep < 3) {
+      this.currentStep++;
+    }
+  }
+
+  previousStep() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
+    }
   }
 }

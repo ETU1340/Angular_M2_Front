@@ -21,17 +21,17 @@ export class AssignmentsService {
   //uri = 'https://angularmbdsmadagascar2024.onrender.com/api/assignments';
 
   // retourne tous les assignments
-  getAssignments(): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(this.uri);
+  getAssignments(): Observable<IAssignment[]> {
+    return this.http.get<IAssignment[]>(this.uri);
   }
-  getAssignmentReturned(): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(
+  getAssignmentReturned(): Observable<IAssignment[]> {
+    return this.http.get<IAssignment[]>(
       'http://localhost:8010/api/assignmentReturned'
     );
   }
 
-  getAssignmentNotReturned(): Observable<Assignment[]> {
-    return this.http.get<Assignment[]>(
+  getAssignmentNotReturned(): Observable<IAssignment[]> {
+    return this.http.get<IAssignment[]>(
       'http://localhost:8010/api/assignmentNotReturned'
     );
   }

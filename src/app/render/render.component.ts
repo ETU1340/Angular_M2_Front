@@ -6,6 +6,7 @@ import {
 } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
+import { IAssignment } from '../shared/interfaces/subject.interface';
 import { AssignmentsService } from '../shared/services/assignments.service';
 import { Assignment } from '../assignments/assignment.model';
 import { FormsModule } from '@angular/forms';
@@ -32,8 +33,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
   ],
 })
 export class RenderComponent {
-  assignmentReturned: Assignment[] = [];
-  assignmentNotReturned: Assignment[] = [];
+  assignmentReturned: IAssignment[] = [];
+  assignmentNotReturned: IAssignment[] = [];
   assignement: any;
   dropEvent: any;
   showModal = false;
@@ -56,7 +57,7 @@ export class RenderComponent {
       this.assignmentNotReturned = data;
     });
   //methode pour deplacé un assignement vers la partie non rendu
-  drop(event: CdkDragDrop<Assignment[]>) {
+  drop(event: CdkDragDrop<IAssignment[]>) {
     this.dropEvent = event;
     if (event.previousContainer === event.container) {
       moveItemInArray(
@@ -73,7 +74,7 @@ export class RenderComponent {
   //action de la modal pour ajouter le note et remarque
   onSubmit() {
     //mis à jour de l'assignement dans la bdd
-    this.assignement.note = this.noteTeacher;
+    this.assignement.mark = this.noteTeacher;
     this.assignement.remark = this.remarkTeacher;
     this.assignement.rendu = true;
     this.assignmentsService
