@@ -21,6 +21,7 @@ import { RouterLink } from '@angular/router';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import {} from 'ngx-spinner';
+import { IAssignment } from '../shared/interfaces/subject.interface';
 @Component({
   selector: 'app-assignments',
   standalone: true,
@@ -56,9 +57,9 @@ export class AssignmentsComponent implements OnInit {
   hasNextPage!: boolean;
   hasPrevPage!: boolean;
   // tableau des assignments POUR AFFICHAGE
-  displayedColumns: string[] = ['nom', 'dateDeRendu', 'rendu'];
+  displayedColumns: string[] = ['nom', 'dateDeRendu'];
 
-  assignments: Assignment[] = [];
+  assignments: IAssignment[] = [];
 
   // UI control
   isLoading = true;
@@ -83,7 +84,6 @@ export class AssignmentsComponent implements OnInit {
 
   ngAfterViewInit() {
     if (!this.scroller) return;
-
     this.scroller
       .elementScrolled()
       .pipe(
@@ -121,9 +121,11 @@ export class AssignmentsComponent implements OnInit {
     this.assignmentsService
       .getAssignmentsPagines(this.page, this.limit)
       .subscribe((data) => {
+        console.log(data);
+
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées');
-        this.assignments = data.docs;
+        this.assignments = data.assignments;
         this.totalDocs = data.totalDocs;
         this.totalPages = data.totalPages;
         this.nextPage = data.nextPage;

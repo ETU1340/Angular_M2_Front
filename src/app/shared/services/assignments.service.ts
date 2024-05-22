@@ -37,8 +37,8 @@ export class AssignmentsService {
   }
 
   getAssignmentsPagines(page: number, limit: number): Observable<any> {
-    return this.http.get<Assignment[]>(
-      this.uri + '?page=' + page + '&limit=' + limit
+    return this.http.get<IAssignment[]>(
+      urls.assignments.get + '?page=' + page + '&limit=' + limit
     );
   }
 

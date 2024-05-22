@@ -8,5 +8,6 @@ export const urls = {
   },
   assignments: {
     post: baseurl + 'assignments',
+    get: baseurl + 'assignments',
   },
 };

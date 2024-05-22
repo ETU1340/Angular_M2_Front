@@ -30,4 +30,5 @@ export interface IAssignment {
   };
   mark?: number;
   remark?: string;
+  isHanded: boolean;
 }

@@ -86,6 +86,7 @@ export class AddAssignmentComponent implements OnInit {
         fullName: this.selectedSubject!.teacher.fullName,
         picture: this.selectedSubject!.teacher.picture,
       },
+      isHanded: false,
     };
 
     this.assignmentsService
