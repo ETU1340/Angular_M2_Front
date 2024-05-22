@@ -1,18 +1,15 @@
-<div class="w-full h-full">
-  <ngx-spinner
-    bdColor="rgba(51,51,51,0.8)"
-    size="medium"
-    color="#fff"
-    type="ball-scale-multiple"
+<div class="w-full h-full relative">
+  <div
+    *ngIf="isLoading"
+    class="h-full w-full flex justify-center items-center z-50 absolute top-0 left-0"
   >
-    <p style="font-size: 20px; color: white">Loading...</p>
-  </ngx-spinner>
+    <div class="loader"></div>
+  </div>
   <h1 class="m-0">{{ titre }}</h1>
-  <p>
+  <!-- <p>
     Nb documents : {{ totalDocs }}, nbPages : {{ totalPages }}
     <br />
     Page courante : {{ page }}, nb de docs par page : {{ limit }}
-    <!-- add slider for adjusting the limit property, with angular 17 -->
     <mat-slider min="1" max="100" step="1" thumbLabel>
       <input
         matSliderThumb
@@ -20,7 +17,7 @@
         (change)="getAssignmentsFromService()"
       />
     </mat-slider>
-  </p>
+  </p> -->
 
   <!-- <h2>Version avec scrolling infini</h2>
   <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
@@ -37,7 +34,7 @@
     </mat-list>
   </cdk-virtual-scroll-viewport> -->
 
-  <div class="">
+  <!-- <div class="">
     <button
       mat-raised-button
       color="primary"
@@ -74,11 +71,11 @@
     >
       Dernière
     </button>
-  </div>
+  </div> -->
 
   <mat-paginator
     #paginator
-    class="mt-5 bg-transparent"
+    class="mt-5 bg-transparent rounded-lg border border-neutral-100"
     (page)="handlePageEvent($event)"
     [length]="totalPages"
     [pageSize]="limit"
@@ -88,19 +85,67 @@
     aria-label="Select page"
   >
   </mat-paginator>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-10 mb-10">
+    <div
+      *ngFor="let assignment of assignments"
+      class="border border-neutral-100 bg-white hover:bg-blue-500 hover:text-white cursor-pointer transition-all duration-100 shadow flex gap-10 p-5 rounded-xl max-w-full"
+    >
+      <div class="flex w-fit">
+        <div class="flex items-center">
+          <img
+            src="{{ assignment.student.profile }}"
+            class="w-16 h-auto rounded-full m-0"
+            alt=""
+          />
+        </div>
+        <div class="flex flex-col gap-4">
+          <img
+            src="{{ assignment.teacher.picture }}"
+            class="w-16 h-auto rounded-full m-0"
+            alt=""
+          />
+          <img
+            src="{{ assignment.subject.picture }}"
+            class="w-16 h-auto rounded-full m-0"
+            alt=""
+          />
+        </div>
+      </div>
+      <div class="flex-grow">
+        <p class="m-0 line-clamp-1">
+          <span class="font-bold">Name </span> :
+          {{ assignment.name }}
+        </p>
+        <p class="m-0 mt-5">
+          <span class="font-bold">Teacher</span> :
+          {{ assignment.teacher.fullName }}
+        </p>
+        <p class="m-0">
+          <span class="font-bold">Student</span> :
+          {{ assignment.student.name }}
+        </p>
+        <p class="m-0">
+          <span class="font-bold">Subject</span> :
+          {{ assignment.subject.name }}
+        </p>
+        <p class="m-0">
+          <span class="font-bold"> Submission date</span> :
+          {{ assignment.dateRendu.toString() | date }}
+        </p>
+      </div>
+    </div>
+  </div>
 
-  <table
+  <!-- <table
     mat-table
     [dataSource]="assignments"
     class="mat-elevation-z8 demo-table"
   >
-    <!-- Nom Column -->
     <ng-container matColumnDef="nom">
       <th mat-header-cell *matHeaderCellDef>Nom</th>
       <td mat-cell *matCellDef="let a">{{ a.name }}</td>
     </ng-container>
 
-    <!-- dateDeRendu Column -->
     <ng-container matColumnDef="dateDeRendu">
       <th mat-header-cell *matHeaderCellDef>Date de rendu</th>
       <td mat-cell *matCellDef="let a">{{ a.dateRendu | date }}</td>
@@ -108,28 +153,5 @@
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table>
-
-  <!-- <h1>Version avec ul / li et for</h1>
-  <mat-divider></mat-divider>
-  <mat-list>
-    @for(a of assignments; track a.nom) {
-    <mat-list-item>
-      <nav>
-        <a routerLink="/assignment/{{ a._id }}">
-          <div>
-            <h3
-              matListItemTitle
-              [ngStyle]="{ color: a.rendu ? 'green' : 'red' }"
-            >
-              {{ a.nom }}
-            </h3>
-            <p matListItemLine>{{ a.dateDeRendu | date }}</p>
-          </div>
-        </a>
-      </nav>
-    </mat-list-item>
-    <mat-divider></mat-divider>
-    }
-  </mat-list> -->
+  </table> -->
 </div>

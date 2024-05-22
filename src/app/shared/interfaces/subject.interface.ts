@@ -12,7 +12,7 @@ export interface ISubject {
 }
 export interface IAssignment {
   dateRendu: Date;
-  rendu: Boolean;
+  isHanded: Boolean;
   name: string;
   student: {
     _id: string;
@@ -31,5 +31,4 @@ export interface IAssignment {
   };
   mark?: number;
   remark?: string;
-  isHanded: boolean;
 }

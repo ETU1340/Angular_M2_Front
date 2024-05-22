@@ -70,8 +70,7 @@ export class AssignmentsComponent implements OnInit {
   // ici on injecte le service
   constructor(
     private assignmentsService: AssignmentsService,
-    private ngZone: NgZone,
-    private spinner: NgxSpinnerService
+    private ngZone: NgZone // private spinner: NgxSpinnerService
   ) {}
 
   getColor(a: any) {
@@ -116,15 +115,9 @@ export class AssignmentsComponent implements OnInit {
 
   getAssignmentsFromService() {
     this.isLoading = true;
-    this.spinner.show();
-    // on récupère les assignments depuis le service
     this.assignmentsService
       .getAssignmentsPagines(this.page, this.limit)
       .subscribe((data) => {
-        console.log(data);
-
-        // les données arrivent ici au bout d'un certain temps
-        console.log('Données arrivées');
         this.assignments = data.assignments;
         this.totalDocs = data.totalDocs;
         this.totalPages = data.totalPages;
@@ -133,9 +126,7 @@ export class AssignmentsComponent implements OnInit {
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
         this.isLoading = false;
-        this.spinner.hide();
       });
-    console.log('Requête envoyée');
   }
 
   getAssignmentsFromServicePourScrollInfini() {

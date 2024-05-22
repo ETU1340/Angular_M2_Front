@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { MatSidenavModule } from '@angular/material/sidenav';
+import { Component, ViewChild } from '@angular/core';
+import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
   bootstrapLayoutSidebarInset,
@@ -40,12 +40,12 @@ import { AuthService } from '../../shared/services/auth.service';
 export class AppLayoutComponent {
   title = 'Application de gestion des assignments';
   showFiller = true;
-
   constructor(
     private authService: AuthService,
     private assignmentsService: AssignmentsService,
     private router: Router
   ) {}
+  ngOnInit(): void {}
   login() {
     // on utilise le service d'autentification
     // pour se connecter ou se déconnecter
