@@ -11,6 +11,7 @@ export interface ISubject {
   };
 }
 export interface IAssignment {
+  _id?: string;
   dateRendu: Date;
   isHanded: Boolean;
   name: string;

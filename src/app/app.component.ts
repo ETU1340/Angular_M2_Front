@@ -12,8 +12,6 @@ import { AssignmentsService } from './shared/services/assignments.service';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 
-
-
 import {
   bootstrapLayoutSidebarInset,
   bootstrapPlusLg,
@@ -32,7 +30,7 @@ import { heroHome } from '@ng-icons/heroicons/outline';
     AssignmentsComponent,
     MatSidenavModule,
     NgIconComponent,
-    TeachersComponent
+    TeachersComponent,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -40,7 +38,6 @@ import { heroHome } from '@ng-icons/heroicons/outline';
     provideIcons({ bootstrapLayoutSidebarInset, heroHome, bootstrapPlusLg }),
   ],
 })
-
 export class AppComponent {
   title = 'Application de gestion des assignments';
   showFiller = true;
@@ -58,19 +55,19 @@ export class AppComponent {
     // on navigue vers la page d'accueil
   }
 
-  genererDonneesDeTest() {
-    // on utilise le service
-    /* VERSION NAIVE
+  // genererDonneesDeTest() {
+  // on utilise le service
+  /* VERSION NAIVE
     this.assignmentsService.peuplerBD();
     */
-    // VERSION AVEC Observable
-    // this.assignmentsService.peuplerBDavecForkJoin().subscribe(() => {
-    //   console.log(
-    //     'Données générées, on rafraichit la page pour voir la liste à jour !'
-    //   );
-    //   window.location.reload();
-    //   // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
-    //   // this.router.navigate(['/home'], {replaceUrl:true});
-    // });
-  }
+  // VERSION AVEC Observable
+  // this.assignmentsService.peuplerBDavecForkJoin().subscribe(() => {
+  //   console.log(
+  //     'Données générées, on rafraichit la page pour voir la liste à jour !'
+  //   );
+  //   window.location.reload();
+  //   // On devrait pouvoir le faire avec le router, jussqu'à la version 16 ça fonctionnait avec
+  //   // this.router.navigate(['/home'], {replaceUrl:true});
+  // });
+  // }
 }

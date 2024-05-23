@@ -35,7 +35,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 export class RenderComponent {
   assignmentReturned: IAssignment[] = [];
   assignmentNotReturned: IAssignment[] = [];
-  assignement: any;
+  assignment: any;
   dropEvent: any;
   showModal = false;
   remarkTeacher = '';
@@ -57,7 +57,7 @@ export class RenderComponent {
     .subscribe((data) => {
       this.assignmentNotReturned = data;
     });
-  //methode pour deplacé un assignement vers la partie non rendu
+  //methode pour deplacé un assignment vers la partie non rendu
   drop(event: CdkDragDrop<IAssignment[]>) {
     this.dropEvent = event;
     if (event.previousContainer === event.container) {
@@ -67,23 +67,23 @@ export class RenderComponent {
         event.currentIndex
       );
     } else {
-      this.assignement = event.previousContainer.data[0];
+      this.assignment = event.previousContainer.data[0];
       this.toggleModal();
     }
   }
 
   //action de la modal pour ajouter le note et remarque
   onSubmit() {
-    //mis à jour de l'assignement dans la bdd
-    this.assignement.mark = this.noteTeacher;
-    this.assignement.remark = this.remarkTeacher;
-    this.assignement.rendu = true;
+    //mis à jour de l'assignment dans la bdd
+    this.assignment.mark = this.noteTeacher;
+    this.assignment.remark = this.remarkTeacher;
+    this.assignment.rendu = true;
     this.assignmentsService
-      .updateAssignment(this.assignement)
+      .updateAssignment(this.assignment)
       .subscribe((message) => {
         this.toggleModal();
       });
-    //deplace l'assignement dans la partie rendu
+    //deplace l'assignment dans la partie rendu
     transferArrayItem(
       this.dropEvent.previousContainer.data,
       this.dropEvent.container.data,

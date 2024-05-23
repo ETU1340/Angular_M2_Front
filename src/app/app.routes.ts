@@ -6,7 +6,6 @@ import { RenderComponent } from './render/render.component';
 import { LoginComponent } from './teachers/login-teachers/login-teachers.component';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { authGuard } from './shared/auth.guard';
-import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 
 export const routes: Routes = [
@@ -29,8 +28,13 @@ export const routes: Routes = [
         canActivate: [authGuard],
       },
       {
-        path: 'assignment/:id/edit',
+        path: 'assignment/edit/:id',
         component: EditAssignmentComponent,
+        canActivate: [authGuard],
+      },
+      {
+        path: 'assignment/details/:id',
+        component: AssignmentDetailComponent,
         canActivate: [authGuard],
       },
     ],

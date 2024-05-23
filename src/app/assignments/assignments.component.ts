@@ -17,7 +17,7 @@ import { Assignment } from './assignment.model';
 import { AssignmentDetailComponent } from './assignment-detail/assignment-detail.component';
 import { AddAssignmentComponent } from './add-assignment/add-assignment.component';
 import { AssignmentsService } from '../shared/services/assignments.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { filter, map, pairwise, tap, throttleTime } from 'rxjs/operators';
 import { NgxSpinnerModule, NgxSpinnerService } from 'ngx-spinner';
 import {} from 'ngx-spinner';
@@ -70,7 +70,8 @@ export class AssignmentsComponent implements OnInit {
   // ici on injecte le service
   constructor(
     private assignmentsService: AssignmentsService,
-    private ngZone: NgZone // private spinner: NgxSpinnerService
+    private ngZone: NgZone, // private spinner: NgxSpinnerService
+    private router: Router
   ) {}
 
   getColor(a: any) {
@@ -168,5 +169,9 @@ export class AssignmentsComponent implements OnInit {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
     this.getAssignmentsFromService();
+  }
+
+  handleAssignmentCardClick(assignmentId: string) {
+    this.router.navigate(['/app/assignment/details/' + assignmentId]);
   }
 }

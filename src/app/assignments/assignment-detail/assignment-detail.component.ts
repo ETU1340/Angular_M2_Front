@@ -9,6 +9,7 @@ import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../shared/services/assignments.service';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
+import { IAssignment } from '../../shared/interfaces/subject.interface';
 @Component({
   selector: 'app-assignment-detail',
   standalone: true,
@@ -23,7 +24,7 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrl: './assignment-detail.component.css',
 })
 export class AssignmentDetailComponent implements OnInit {
-  assignmentTransmis!: Assignment | undefined;
+  assignment!: IAssignment | undefined;
 
   constructor(
     private assignmentsService: AssignmentsService,
@@ -42,37 +43,37 @@ export class AssignmentDetailComponent implements OnInit {
     const id = this.route.snapshot.params['id'];
     // On utilise le service pour récupérer l'assignment avec cet id
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      this.assignmentTransmis = assignment;
+      this.assignment = assignment;
     });
   }
 
   onAssignmentRendu() {
     // on a cliqué sur la checkbox, on change le statut de l'assignment
-    if (this.assignmentTransmis) {
-      this.assignmentTransmis.rendu = true;
+    // if (this.assignmentTransmis) {
+    //   this.assignmentTransmis.rendu = true;
+    //   this.assignmentsService
+    //     .updateAssignment(this.assignmentTransmis)
+    //     .subscribe((message) => {
+    //       console.log(message);
+    //       // on navigue vers la liste des assignments
+    //       this.router.navigate(['/home']);
+    //     });
+    // }
+  }
+
+  handleDelete() {
+    if (this.assignment) {
       this.assignmentsService
-        .updateAssignment(this.assignmentTransmis)
+        .deleteAssignment(this.assignment)
         .subscribe((message) => {
-          console.log(message);
-          // on navigue vers la liste des assignments
-          this.router.navigate(['/home']);
+          this.assignment = undefined;
+          this.router.navigate(['/app/']);
         });
     }
   }
 
-  onDelete() {
-    // on va directement utiliser le service
-    if (this.assignmentTransmis) {
-      this.assignmentsService
-        .deleteAssignment(this.assignmentTransmis)
-        .subscribe((message) => {
-          console.log(message);
-          // on va cacher la vue de detail en mettant assignmentTransmis à undefined
-          this.assignmentTransmis = undefined;
-          // on navigue vers la liste des assignments
-          this.router.navigate(['/home']);
-        });
-    }
+  handleUpdate() {
+    this.router.navigate(['/app/assignment/edit/' + this.assignment?._id]);
   }
 
   isAdmin() {

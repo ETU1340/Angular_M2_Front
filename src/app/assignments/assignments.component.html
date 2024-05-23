@@ -89,7 +89,7 @@
     <div
       *ngFor="let assignment of assignments"
       class="border border-neutral-100 bg-white hover:bg-blue-500 hover:text-white cursor-pointer transition-all duration-100 shadow flex gap-10 p-5 rounded-xl max-w-full"
-      co
+      (click)="handleAssignmentCardClick(assignment._id!)"
     >
       <div class="flex w-fit">
         <div class="flex items-center">
