@@ -17,9 +17,17 @@ export const routes: Routes = [
     component: AppLayoutComponent,
     children: [
       { path: '', component: AssignmentsComponent, canActivate: [authGuard] },
-      { path: 'add', component: AddAssignmentComponent, canActivate: [authGuard] },
+      {
+        path: 'add',
+        component: AddAssignmentComponent,
+        canActivate: [authGuard],
+      },
       { path: 'render', component: RenderComponent, canActivate: [authGuard] },
-      { path: 'assignment/:id', component: AssignmentDetailComponent  ,canActivate: [authGuard]},
+      {
+        path: 'assignment/:id',
+        component: AssignmentDetailComponent,
+        canActivate: [authGuard],
+      },
       {
         path: 'assignment/:id/edit',
         component: EditAssignmentComponent,

@@ -46,7 +46,6 @@ export class RenderComponent {
     .getAssignmentReturned()
     .subscribe((data) => {
       console.log(data);
-
       this.assignmentReturned = data;
     });
 
