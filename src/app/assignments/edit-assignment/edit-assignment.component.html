@@ -42,7 +42,7 @@
             alt=""
           />
           <h4 class="text-center">
-            Assigned student : {{ assignment.subject.name }}
+            {{ assignment.subject.name }}
           </h4>
         </div>
       </div>
@@ -106,7 +106,16 @@
     </div>
     <mat-form-field class="example-full-width">
       <mat-label>Mark</mat-label>
-      <input type="number" step="0.25" [(ngModel)]="mark" required matInput />
+      <input
+        type="number"
+        name="mark"
+        step="0.25"
+        min="0"
+        max="20"
+        [(ngModel)]="mark"
+        required
+        matInput
+      />
     </mat-form-field>
 
     <mat-form-field class="example-full-width">
@@ -115,6 +124,7 @@
         matInput
         [(ngModel)]="remark"
         placeholder="Leave a comment"
+        name="remark"
       ></textarea>
     </mat-form-field>
     <div class="flex gap-4 mt-10">

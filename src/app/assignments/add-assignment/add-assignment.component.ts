@@ -97,7 +97,7 @@ export class AddAssignmentComponent implements OnInit {
       .addAssignment(nouvelAssignment)
       .subscribe((response) => {
         console.log(response);
-        // this.router.navigate(['/app']);
+        this.router.navigate(['/app/assignments']);
       });
   }
   toggleModal() {

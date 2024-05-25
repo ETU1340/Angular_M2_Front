@@ -74,10 +74,6 @@ export class AssignmentsComponent implements OnInit {
     private router: Router
   ) {}
 
-  getColor(a: any) {
-    return a.rendu ? 'green' : 'red';
-  }
-
   ngOnInit() {
     this.getAssignmentsFromService();
   }
@@ -95,17 +91,9 @@ export class AssignmentsComponent implements OnInit {
         filter(([y1, y2]) => {
           return y2 < y1 && y2 < 100;
         }),
-        // Pour n'envoyer des requêtes que toutes les 200ms
         throttleTime(200)
       )
       .subscribe(() => {
-        // On ne rentre que si on scrolle vers le bas, que si
-        // la distance de la scrollbar est < 100 pixels et que
-        // toutes les 200 ms
-        console.log('On demande de nouveaux assignments');
-        // on va faire une requête pour demander les assignments suivants
-        // et on va concatener le resultat au tableau des assignments courants
-        console.log('je CHARGE DE NOUVELLES DONNEES page = ' + this.page);
         this.ngZone.run(() => {
           if (!this.hasNextPage) return;
           this.page = this.nextPage;

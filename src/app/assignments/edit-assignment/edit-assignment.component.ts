@@ -108,7 +108,6 @@ export class EditAssignmentComponent implements OnInit {
     this.assignment.dateRendu = this.dateRendu;
     this.assignment.mark = this.mark;
     this.assignment.remark = this.remark;
-
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {
@@ -124,7 +123,7 @@ export class EditAssignmentComponent implements OnInit {
         .deleteAssignment(this.assignment)
         .subscribe((message) => {
           this.assignment = undefined;
-          this.router.navigate(['/app/']);
+          this.router.navigate(['/app/assignments']);
         });
     }
   }

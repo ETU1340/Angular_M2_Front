@@ -6,6 +6,7 @@
     <div class="loader"></div>
   </div>
   <h1 class="m-0">{{ titre }}</h1>
+
   <!-- <p>
     Nb documents : {{ totalDocs }}, nbPages : {{ totalPages }}
     <br />
@@ -85,11 +86,29 @@
     aria-label="Select page"
   >
   </mat-paginator>
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-10 mb-10">
+  <div class="flex justify-start gap-5 mt-5">
+    <div class="flex gap-2 items-center">
+      <div class="h-8 w-8 bg-white rounded-full border"></div>
+      <span class="font-medium text-neutral-700">Unmarked</span>
+    </div>
+    <div class="flex gap-2 items-center">
+      <div class="h-8 w-8 bg-yellow-100 rounded-full border"></div>
+      <span class="font-medium text-neutral-700">Marked</span>
+    </div>
+    <div class="flex gap-2 items-center">
+      <div class="h-8 w-8 bg-green-100 rounded-full border"></div>
+      <span class="font-medium text-neutral-700">Handed</span>
+    </div>
+  </div>
+  <div class="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-5 mb-10">
     <div
       *ngFor="let assignment of assignments"
-      class="border border-neutral-100 bg-white hover:bg-blue-500 hover:text-white cursor-pointer transition-all duration-100 shadow flex gap-10 p-5 rounded-xl max-w-full"
       (click)="handleAssignmentCardClick(assignment._id!)"
+      [ngClass]="{
+        'bg-yellow-100': assignment.mark && !assignment.isHanded,
+        'bg-blue-50': assignment.isHanded,
+        'border border-neutral-100 bg-white hover:bg-blue-500 hover:text-white cursor-pointer transition-all duration-100 shadow flex gap-10 p-5 rounded-xl max-w-full': true
+      }"
     >
       <div class="flex w-fit">
         <div class="flex items-center">

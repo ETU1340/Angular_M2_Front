@@ -35,11 +35,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 export class RenderComponent {
   assignmentReturned: IAssignment[] = [];
   assignmentNotReturned: IAssignment[] = [];
-  assignment: any;
+  assignment: IAssignment | undefined;
   dropEvent: any;
   showModal = false;
   remarkTeacher = '';
-  noteTeacher = '';
+  noteTeacher = 10;
 
   constructor(private assignmentsService: AssignmentsService) {}
   returned = this.assignmentsService
@@ -57,15 +57,39 @@ export class RenderComponent {
     .subscribe((data) => {
       this.assignmentNotReturned = data;
     });
-  //methode pour deplacé un assignment vers la partie non rendu
+
+  // methode pour deplacé un assignment vers la partie non rendu
   drop(event: CdkDragDrop<IAssignment[]>) {
     this.dropEvent = event;
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
+    this.assignment = event.previousContainer.data[0];
+    // if (event.previousContainer === event.container) {
+    //   moveItemInArray(
+    //     event.container.data,
+    //     event.previousIndex,
+    //     event.currentIndex
+    //   );
+    // } else {
+    //   this.assignment = event.previousContainer.data[0];
+    //   this.toggleModal();
+    // }
+    if ('mark' in event.previousContainer.data[0]) {
+      // moveItemInArray(
+      //   event.container.data,
+      //   event.previousIndex,
+      //   event.currentIndex
+      // );
+      transferArrayItem(
+        this.dropEvent.previousContainer.data,
+        this.dropEvent.container.data,
+        this.dropEvent.previousIndex,
+        this.dropEvent.currentIndex
       );
+      this.assignment.isHanded = true;
+      this.assignmentsService
+        .updateAssignment(this.assignment)
+        .subscribe((message) => {
+          this.toggleModal();
+        });
     } else {
       this.assignment = event.previousContainer.data[0];
       this.toggleModal();
@@ -74,12 +98,13 @@ export class RenderComponent {
 
   //action de la modal pour ajouter le note et remarque
   onSubmit() {
+    if (!this.assignment) this.returned;
     //mis à jour de l'assignment dans la bdd
-    this.assignment.mark = this.noteTeacher;
-    this.assignment.remark = this.remarkTeacher;
-    this.assignment.rendu = true;
+    this.assignment!.mark = this.noteTeacher;
+    this.assignment!.remark = this.remarkTeacher;
+    this.assignment!.isHanded = true;
     this.assignmentsService
-      .updateAssignment(this.assignment)
+      .updateAssignment(this.assignment!)
       .subscribe((message) => {
         this.toggleModal();
       });

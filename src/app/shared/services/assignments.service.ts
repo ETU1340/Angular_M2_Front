@@ -88,6 +88,10 @@ export class AssignmentsService {
     return this.http.delete(this.uri + '/' + assignment._id);
   }
 
+  getStat() {
+    return this.http.get(urls.stat.get);
+  }
+
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)
   // peuplerBD() {
   //   // on utilise les données de test générées avec mockaroo.com pour peupler la base

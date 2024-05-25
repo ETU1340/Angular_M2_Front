@@ -12,4 +12,7 @@ export const urls = {
     put: baseurl + 'assignments',
     delete: baseurl + 'assignments',
   },
+  stat: {
+    get: baseurl + 'stat',
+  },
 };

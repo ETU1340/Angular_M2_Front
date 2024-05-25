@@ -7,6 +7,7 @@ import { LoginComponent } from './teachers/login-teachers/login-teachers.compone
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 import { authGuard } from './shared/auth.guard';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -15,12 +16,13 @@ export const routes: Routes = [
     path: 'app',
     component: AppLayoutComponent,
     children: [
-      { path: '', component: AssignmentsComponent, canActivate: [authGuard] },
+      { path: '', component: DashboardComponent, canActivate: [authGuard] },
       {
         path: 'add',
         component: AddAssignmentComponent,
         canActivate: [authGuard],
       },
+      { path: 'assignments', component: AssignmentsComponent },
       { path: 'render', component: RenderComponent, canActivate: [authGuard] },
       {
         path: 'assignment/:id',
