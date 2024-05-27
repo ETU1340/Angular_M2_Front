@@ -6,7 +6,6 @@ import { LoggingService } from './logging.service';
 import { HttpClient } from '@angular/common/http';
 
 // importation des données de test
-import { bdInitialAssignments } from '../data';
 import { IAssignment } from '../interfaces/subject.interface';
 import { urls } from './urls';
 
@@ -24,15 +23,15 @@ export class AssignmentsService {
   getAssignments(): Observable<IAssignment[]> {
     return this.http.get<IAssignment[]>(this.uri);
   }
-  getAssignmentReturned(): Observable<IAssignment[]> {
-    return this.http.get<IAssignment[]>(
-      'http://localhost:8010/api/assignmentReturned'
+  getAssignmentReturned(page: number, limit: number): Observable<any> {
+    return this.http.get<any>(
+      'http://localhost:8010/api/assignmentReturned?page='+page+'&limit='+limit
     );
   }
 
-  getAssignmentNotReturned(): Observable<IAssignment[]> {
-    return this.http.get<IAssignment[]>(
-      'http://localhost:8010/api/assignmentNotReturned'
+  getAssignmentNotReturned(page: number, limit: number): Observable<any> {
+    return this.http.get<any>(
+      'http://localhost:8010/api/assignmentNotReturned?page='+page+'&limit='+limit
     );
   }
 

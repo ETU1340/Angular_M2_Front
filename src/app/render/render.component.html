@@ -46,24 +46,28 @@
 }
 
 <div class="example-container">
-  <h2>Assignements</h2>
 
+  <h2>Assignements</h2>
+  <cdk-virtual-scroll-viewport  itemSize = "10"  class = "example-viewport" #scrollerNotReturned> 
   <div
     cdkDropList
     #todoList="cdkDropList"
     [cdkDropListData]="assignmentNotReturned"
     [cdkDropListConnectedTo]="[doneList]"
     class="example-list"
+    (cdkDropListDropped)="drop($event)"
   >
-    <div class="example-box" *ngFor="let item of assignmentNotReturned" cdkDrag>
+    <div class="example-box" *cdkVirtualFor="let item of assignmentNotReturned" cdkDrag>
       {{ item.name }}
     </div>
   </div>
-</div>
+  </cdk-virtual-scroll-viewport >
 
+</div>
+  
 <div class="example-container">
   <h2>Assignements rendu</h2>
-
+  <cdk-virtual-scroll-viewport  itemSize = "10"  class = "example-viewport" #scrollerReturned> 
   <div
     cdkDropList
     #doneList="cdkDropList"
@@ -71,10 +75,11 @@
     class="example-list"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="example-box" *ngFor="let item of assignmentReturned" cdkDrag>
+    <div class="example-box" *cdkVirtualFor="let item of assignmentReturned" cdkDrag>
       {{ item.name }}
     </div>
   </div>
+</cdk-virtual-scroll-viewport >
 </div>
 
 <!-- Copyright 2019 Google Inc. All Rights Reserved.
