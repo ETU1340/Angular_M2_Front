@@ -91,6 +91,14 @@ export class AssignmentsService {
     return this.http.get(urls.stat.get);
   }
 
+  searchReturned(name :string):Observable<IAssignment[]> {
+    return this.http.get<IAssignment[]>(urls.searchReturned.get+ '?name=' + name );
+  }
+
+  searchNotReturned(name :string):Observable<IAssignment[]> {
+    return this.http.get<IAssignment[]>(urls.searchNotReturned.get+ '?name=' + name );
+  }
+
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)
   // peuplerBD() {
   //   // on utilise les données de test générées avec mockaroo.com pour peupler la base

@@ -15,4 +15,10 @@ export const urls = {
   stat: {
     get: baseurl + 'stat',
   },
+  searchReturned: {
+    get: baseurl + 'searchReturned',
+  },
+  searchNotReturned: {
+    get: baseurl + 'searchNotReturned',
+  }
 };

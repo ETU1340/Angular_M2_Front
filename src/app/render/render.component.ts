@@ -1,14 +1,12 @@
 import { Component,OnInit,ViewChild,NgZone} from '@angular/core';
 import {
   CdkDragDrop,
-  moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
 import { IAssignment } from '../shared/interfaces/subject.interface';
 import { AssignmentsService } from '../shared/services/assignments.service';
-import { Assignment } from '../assignments/assignment.model';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -63,25 +61,59 @@ export class RenderComponent implements OnInit {
   hasNextPageNotReturned!: boolean;
   nextPageNotReturned!: number;
 
+  searchReturned = "";
+  searchNotReturned = "";
+
   constructor(private assignmentsService: AssignmentsService, private ngZone: NgZone) {}
 
   ngOnInit(): void {
     this.loadAssignmentsReturned();
     this.loadAssignmentsNotReturned();
-    
-
+  
   }
 
+  onInputChangeFirst(value: string) {
+  this.applyAllFilters(value,"notReturned");
+  }
+
+  onInputChangeSecond(value: string) {
+  this.applyAllFilters(value,"returned");
+  }
+
+  clearReturned = () => {
+    this.searchReturned ="";
+    this.loadAssignmentsReturned();
+  };
+
+  clearNotReturned = () => {
+    this.searchNotReturned ="";
+    this.loadAssignmentsNotReturned();
+  };
 
   toggleModal() {
     this.showModal = !this.showModal;
   }
 
+  
+  private applyAllFilters = (value: string,type: string) => {
+    if (type == "returned") {
+      this.assignmentsService.searchReturned(value).subscribe((data) => {
+        this.assignmentReturned = data;
+      });
+    }
+
+    if (type == "notReturned") {
+      this.assignmentsService.searchNotReturned(value).subscribe((data) => {
+        this.assignmentNotReturned = data;
+      });
+    }
+
+  };
+
   loadAssignmentsNotReturned() {
   this.assignmentsService
     .getAssignmentNotReturned(this.pageNotReturned, this.limitNotReturned)
     .subscribe((data) => {
-      console.log(data);
       this.assignmentNotReturned = [...this.assignmentNotReturned, ...data.assignments];
       this.totalPagesNotReturned = data.totalPages;
       this.nextPageNotReturned = data.nextPage;
@@ -105,24 +137,8 @@ export class RenderComponent implements OnInit {
   drop(event: CdkDragDrop<IAssignment[]>) {
     this.dropEvent = event;
     this.assignment = event.previousContainer.data[0];
-    // if (event.previousContainer === event.container) {
-    //   moveItemInArray(
-    //     event.container.data,
-    //     event.previousIndex,
-    //     event.currentIndex
-    //   );
-    // } else {
-    //   this.assignment = event.previousContainer.data[0];
-    //   this.toggleModal();
-    // }
     if (this.dropEvent.previousContainer === this.dropEvent.container) {
-      console.log(this.dropEvent.currentIndex);
-      console.log(this.dropEvent.previousIndex);
-      // moveItemInArray(
-      //   event.container.data,
-      //   event.previousIndex,
-      //   event.currentIndex
-      // );
+
       transferArrayItem(
         this.dropEvent.previousContainer.data,
         this.dropEvent.container.data,
@@ -130,8 +146,7 @@ export class RenderComponent implements OnInit {
         this.dropEvent.currentIndex
       );
     } else if( "mark" in this.dropEvent.previousContainer.data[0]) {
-    console.log('assignement deja noté');
-
+      console.log('assignement deja noté');
       this.assignment.isHanded = true;
       this.assignmentsService.updateAssignment(this.assignment).subscribe();
      transferArrayItem(
@@ -147,18 +162,11 @@ export class RenderComponent implements OnInit {
     
   }
   ngAfterViewInit() {
-    console.log(' ----- after view init ----');
-
-    console.log(' ----- at ooooooooooooo----');
-    // on s'abonne à l'évènement scroll du virtual scroller
+    console.log(' ----- Init DATA----');
     this.scrollerNotReturned
       .elementScrolled()
       .pipe(
         tap(() => {
-          //const dist = this.scroller.measureScrollOffset('bottom');
-          /*console.log(
-            'dans le tap, distance par rapport au bas de la fenêtre = ' + dist
-          );*/
         }),
         map((event) => {
           return this.scrollerNotReturned.measureScrollOffset('bottom');
@@ -167,17 +175,9 @@ export class RenderComponent implements OnInit {
         filter(([y1, y2]) => {
           return y2 < y1 && y2 < 100;
         }),
-        // Pour n'envoyer des requêtes que toutes les 200ms
         throttleTime(200)
       )
       .subscribe(() => {
-        // On ne rentre que si on scrolle vers le bas, que si
-        // la distance de la scrollbar est < 100 pixels et que
-        // toutes les 200 ms
-          console.log('On demande de nouveaux assignments');
-          // on va faire une requête pour demander les assignments suivants
-          // et on va concatener le resultat au tableau des assignments courants
-          console.log('je CHARGE DE NOUVELLES DONNEES page = ' + this.pageNotReturned);
           this.ngZone.run(() => {
 
             console.log("hasnextPage:" +this.hasNextPageNotReturned);
@@ -191,10 +191,6 @@ export class RenderComponent implements OnInit {
       .elementScrolled()
       .pipe(
         tap(() => {
-          //const dist = this.scroller.measureScrollOffset('bottom');
-          /*console.log(
-            'dans le tap, distance par rapport au bas de la fenêtre = ' + dist
-          );*/
         }),
         map((event) => {
           return this.scrollerReturned.measureScrollOffset('bottom');
@@ -203,17 +199,9 @@ export class RenderComponent implements OnInit {
         filter(([y1, y2]) => {
           return y2 < y1 && y2 < 100;
         }),
-        // Pour n'envoyer des requêtes que toutes les 200ms
         throttleTime(200)
       )
       .subscribe(() => {
-        // On ne rentre que si on scrolle vers le bas, que si
-        // la distance de la scrollbar est < 100 pixels et que
-        // toutes les 200 ms
-          console.log('On demande de nouveaux assignments');
-          // on va faire une requête pour demander les assignments suivants
-          // et on va concatener le resultat au tableau des assignments courants
-          console.log('je CHARGE DE NOUVELLES DONNEES page = ' + this.pageReturned);
           this.ngZone.run(() => {
 
             console.log("hasnextPage:" +this.hasNextPageReturned);

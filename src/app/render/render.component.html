@@ -44,7 +44,17 @@
   </div>
 </div>
 }
-
+<div
+  style="background-color:lightblue; text-align:center; padding:12px 0; margin-bottom:24px"
+>
+  <input style="margin-left: -270px;" placeholder="Assignment name" [(ngModel)]="searchNotReturned" (ngModelChange)="onInputChangeFirst($event)"  type="text" />
+  &nbsp;
+  <button style="margin-right: 70px;" (click)="clearNotReturned()">X</button>
+  &nbsp;
+  <input placeholder="Assignment name" [(ngModel)]="searchReturned" (ngModelChange)="onInputChangeSecond($event)" type="text" />
+  &nbsp;
+  <button (click)="clearReturned()">X</button>
+</div>
 <div class="example-container">
 
   <h2>Assignements</h2>
