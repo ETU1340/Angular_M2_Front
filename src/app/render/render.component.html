@@ -57,7 +57,7 @@
     class="example-list"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="example-box" *cdkVirtualFor="let item of assignmentNotReturned" cdkDrag>
+    <div class="example-box" *ngFor="let item of assignmentNotReturned" cdkDrag>
       {{ item.name }}
     </div>
   </div>
@@ -75,7 +75,7 @@
     class="example-list"
     (cdkDropListDropped)="drop($event)"
   >
-    <div class="example-box" *cdkVirtualFor="let item of assignmentReturned" cdkDrag>
+    <div class="example-box" *ngFor="let item of assignmentReturned" cdkDrag>
       {{ item.name }}
     </div>
   </div>

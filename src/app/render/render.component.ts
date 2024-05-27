@@ -123,7 +123,8 @@ export class RenderComponent implements OnInit {
       //   event.previousIndex,
       //   event.currentIndex
       // );
-      moveItemInArray(
+      transferArrayItem(
+        this.dropEvent.previousContainer.data,
         this.dropEvent.container.data,
         this.dropEvent.previousIndex,
         this.dropEvent.currentIndex
@@ -133,11 +134,12 @@ export class RenderComponent implements OnInit {
 
       this.assignment.isHanded = true;
       this.assignmentsService.updateAssignment(this.assignment).subscribe();
-      moveItemInArray(
-        this.dropEvent.container.data,
-        this.dropEvent.previousIndex,
-        this.dropEvent.currentIndex
-      );
+     transferArrayItem(
+      this.dropEvent.previousContainer.data,
+      this.dropEvent.container.data,
+      this.dropEvent.previousIndex,
+      this.dropEvent.currentIndex
+    );
     } else {
       console.log('assignement pas noté');
       this.toggleModal();
