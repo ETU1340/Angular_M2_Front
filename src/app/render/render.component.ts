@@ -162,15 +162,16 @@ export class RenderComponent implements OnInit {
         this.dropEvent.currentIndex
       );
     } else if( "mark" in this.dropEvent.previousContainer.data[0]) {
-      console.log('assignement deja noté');
-      this.assignment.isHanded = true;
-      this.assignmentsService.updateAssignment(this.assignment).subscribe();
-     transferArrayItem(
-      this.dropEvent.previousContainer.data,
-      this.dropEvent.container.data,
-      this.dropEvent.previousIndex,
-      this.dropEvent.currentIndex
-    );
+        console.log('assignement deja noté');
+        this.assignment.isHanded = true;
+        this.assignmentsService.updateAssignment(this.assignment).subscribe();
+        transferArrayItem(
+        this.dropEvent.previousContainer.data,
+        this.dropEvent.container.data,
+        this.dropEvent.previousIndex,
+        this.dropEvent.currentIndex
+        );
+        this.utilityService.showSuccessMessage("Assignment already noted, delivered successfully");
     } else {
       console.log('assignement pas noté');
       this.toggleModal();
@@ -241,6 +242,6 @@ export class RenderComponent implements OnInit {
       this.dropEvent.previousIndex,
       this.dropEvent.currentIndex
     );
-    this.utilityService.showSuccessMessage("Assignment rendu avec succés");
+    this.utilityService.showSuccessMessage("Assignment delivered successfully");
   }
 }

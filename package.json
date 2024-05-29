@@ -24,6 +24,7 @@
     "@ng-icons/core": "^27.2.0",
     "@ng-icons/heroicons": "^27.2.0",
     "@ng-icons/ionicons": "^27.2.0",
+    "@ng-icons/remixicon": "^27.5.2",
     "build": "^0.1.4",
     "express": "^4.18.3",
     "ng": "^0.0.0",
