@@ -44,17 +44,25 @@
   </div>
 </div>
 }
-<div
-  style="background-color:lightblue; text-align:center; padding:12px 0; margin-bottom:24px"
->
-  <input style="margin-left: -270px;" placeholder="Assignment name" [(ngModel)]="searchNotReturned" (ngModelChange)="onInputChangeFirst($event)"  type="text" />
-  &nbsp;
-  <button style="margin-right: 70px;" (click)="clearNotReturned()">X</button>
-  &nbsp;
-  <input placeholder="Assignment name" [(ngModel)]="searchReturned" (ngModelChange)="onInputChangeSecond($event)" type="text" />
+
+
+<div style=" text-align:center; ">
+<div class="search-bar">
+<input class="class-input" placeholder="Assignment name" [(ngModel)]="searchNotReturned" (ngModelChange)="onInputChangeFirst($event)"  type="text" />
+&nbsp;
+<button (click)="clearNotReturned()">X</button>
+</div>
+&nbsp;
+<div class="search-bar">
+  <input class="class-input" placeholder="Assignment name" [(ngModel)]="searchReturned" (ngModelChange)="onInputChangeSecond($event)" type="text" />
   &nbsp;
   <button (click)="clearReturned()">X</button>
 </div>
+</div>
+
+
+
+<div style=" text-align:center; ">
 <div class="example-container">
 
   <h2>Assignements</h2>
@@ -91,6 +99,8 @@
   </div>
 </cdk-virtual-scroll-viewport >
 </div>
+</div>
+
 
 <!-- Copyright 2019 Google Inc. All Rights Reserved.
     Use of this source code is governed by an MIT-style license that

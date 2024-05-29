@@ -61,6 +61,7 @@ export class AuthService {
   // admin = await this.authService.isAdmin()
   isAdmin() {
     const isAdmin = localStorage.getItem('login');
+    console.log(isAdmin);
     if(isAdmin == 'true') {
       return true;
     }

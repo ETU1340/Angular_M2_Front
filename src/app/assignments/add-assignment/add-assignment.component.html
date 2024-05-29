@@ -161,14 +161,14 @@
           'font-bold': true,
           'rounded-lg': true,
           'bg-neutral-200':
-            nomAssignment === '' || dateDeRendu === undefined || !isAdmin(),
+            nomAssignment === '' || dateDeRendu === undefined ,
           'text-neutral-400':
-            nomAssignment === '' || dateDeRendu === undefined || !isAdmin(),
+            nomAssignment === '' || dateDeRendu === undefined ,
           'cursor-not-allowed':
-            nomAssignment === '' || dateDeRendu === undefined || !isAdmin()
+            nomAssignment === '' || dateDeRendu === undefined 
         }"
         [disabled]="
-          nomAssignment == '' || dateDeRendu === undefined || !isAdmin()
+          nomAssignment == '' || dateDeRendu === undefined
         "
       >
         Ajouter un devoir

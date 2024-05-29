@@ -7,6 +7,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
 import { IAssignment } from '../shared/interfaces/subject.interface';
 import { AssignmentsService } from '../shared/services/assignments.service';
+import { UtilityService } from '../shared/services/utility.service';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -64,7 +65,7 @@ export class RenderComponent implements OnInit {
   searchReturned = "";
   searchNotReturned = "";
 
-  constructor(private assignmentsService: AssignmentsService, private ngZone: NgZone) {}
+  constructor(private assignmentsService: AssignmentsService, private ngZone: NgZone, private utilityService: UtilityService) {}
 
   ngOnInit(): void {
     this.loadAssignmentsReturned();
@@ -146,7 +147,7 @@ export class RenderComponent implements OnInit {
         this.dropEvent.currentIndex
       );
     } else if( "mark" in this.dropEvent.previousContainer.data[0]) {
-      console.log('assignement deja noté');
+      //assignement deja noté
       this.assignment.isHanded = true;
       this.assignmentsService.updateAssignment(this.assignment).subscribe();
      transferArrayItem(
@@ -155,8 +156,9 @@ export class RenderComponent implements OnInit {
       this.dropEvent.previousIndex,
       this.dropEvent.currentIndex
     );
+    this.utilityService.showSuccessMessage("Assignment deja noté, rendu avec succés");
     } else {
-      console.log('assignement pas noté');
+      //assignement pas noté'
       this.toggleModal();
     }
     
@@ -230,5 +232,6 @@ export class RenderComponent implements OnInit {
       this.dropEvent.previousIndex,
       this.dropEvent.currentIndex
     );
+    this.utilityService.showSuccessMessage("Assignment rendu avec succés");
   }
 }

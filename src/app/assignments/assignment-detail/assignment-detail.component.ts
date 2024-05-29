@@ -5,10 +5,10 @@ import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
-import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../shared/services/assignments.service';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
+import { UtilityService } from '../../shared/services/utility.service';
 import { IAssignment } from '../../shared/interfaces/subject.interface';
 @Component({
   selector: 'app-assignment-detail',
@@ -30,7 +30,8 @@ export class AssignmentDetailComponent implements OnInit {
     private assignmentsService: AssignmentsService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private utilityService: UtilityService
   ) {}
 
   ngOnInit() {
@@ -62,6 +63,11 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   handleDelete() {
+    if(!this.isAdmin()) {
+      this.utilityService.showErrorMessage("Vous n'avez pas l'autorisation d'effectuer cette action !");
+      return;
+    }
+
     if (this.assignment) {
       this.assignmentsService
         .deleteAssignment(this.assignment)
@@ -73,10 +79,16 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   handleUpdate() {
+    if(!this.isAdmin()) {
+      this.utilityService.showErrorMessage("Vous n'avez pas l'autorisation d'effectuer cette action !") ;
+      return;
+    }
     this.router.navigate(['/app/assignment/edit/' + this.assignment?._id]);
   }
 
   isAdmin() {
     return this.authService.loggedIn;
   }
-}
+
+
+  }

@@ -13,6 +13,7 @@ import { StudentCardComponent } from '../../students/student-card/student-card.c
 import { StudentsService } from '../../shared/services/students.service';
 import { MatSelectModule } from '@angular/material/select';
 import { SubjectsService } from '../../shared/services/subjects.service';
+import { UtilityService} from '../../shared/services/utility.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { Student } from './../../shared/interfaces/person.interface';
 import {
@@ -56,7 +57,8 @@ export class AddAssignmentComponent implements OnInit {
     private authService: AuthService,
     private studentsService: StudentsService,
     private subjectsService: SubjectsService,
-    private router: Router
+    private router: Router,
+    private utilityRoute: UtilityService
   ) {}
   ngOnInit(): void {
     this.studentsService.getStudents().subscribe((data) => {
@@ -99,6 +101,7 @@ export class AddAssignmentComponent implements OnInit {
         console.log(response);
         this.router.navigate(['/app/assignments']);
       });
+    this.utilityRoute.showSuccessMessage("Assignment ajouté avec succés");
   }
   toggleModal() {
     this.showModal = !this.showModal;

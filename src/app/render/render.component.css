@@ -5,6 +5,16 @@
   display: inline-block;
   vertical-align: top;
 }
+.search-bar {
+  display: inline;
+  padding:50px;
+  width: 100%;
+}
+.class-input {
+height: 30px;
+width: 200px;
+border-radius: 5px;
+}
 
 .example-list {
   border: solid 1px #ccc;
