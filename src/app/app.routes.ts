@@ -8,6 +8,7 @@ import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assi
 import { authGuard } from './shared/auth.guard';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { isAdmin } from './shared/isAdmin.guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -23,7 +24,11 @@ export const routes: Routes = [
         canActivate: [authGuard],
       },
       { path: 'assignments', component: AssignmentsComponent },
-      { path: 'render', component: RenderComponent, canActivate: [authGuard] },
+      {
+        path: 'render',
+        component: RenderComponent,
+        canActivate: [authGuard, isAdmin],
+      },
       {
         path: 'assignment/:id',
         component: AssignmentDetailComponent,
@@ -32,7 +37,7 @@ export const routes: Routes = [
       {
         path: 'assignment/edit/:id',
         component: EditAssignmentComponent,
-        canActivate: [authGuard],
+        canActivate: [authGuard, isAdmin],
       },
       {
         path: 'assignment/details/:id',

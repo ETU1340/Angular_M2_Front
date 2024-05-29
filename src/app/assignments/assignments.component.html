@@ -7,73 +7,6 @@
   </div>
   <h1 class="m-0">{{ titre }}</h1>
 
-  <!-- <p>
-    Nb documents : {{ totalDocs }}, nbPages : {{ totalPages }}
-    <br />
-    Page courante : {{ page }}, nb de docs par page : {{ limit }}
-    <mat-slider min="1" max="100" step="1" thumbLabel>
-      <input
-        matSliderThumb
-        [(ngModel)]="limit"
-        (change)="getAssignmentsFromService()"
-      />
-    </mat-slider>
-  </p> -->
-
-  <!-- <h2>Version avec scrolling infini</h2>
-  <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport" #scroller>
-    <mat-list *cdkVirtualFor="let a of assignments" class="example-item">
-      <a routerLink="/assignments/{{ a._id }}">
-        <h3 mat-subheader>
-          Date limite: {{ a.dateDeRendu | date : "dd/MM/yy" }}
-        </h3>
-        <mat-list-item>
-          <p>{{ a.nom }} id = {{ a._id }}, rendu : {{ a.rendu }}</p>
-        </mat-list-item>
-        <mat-divider></mat-divider>
-      </a>
-    </mat-list>
-  </cdk-virtual-scroll-viewport> -->
-
-  <!-- <div class="">
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasPrevPage"
-      [disabled]="!hasPrevPage"
-      (click)="premierePage()"
-    >
-      Première
-    </button>
-    &nbsp;&nbsp;&nbsp;
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasPrevPage"
-      (click)="pagePrecedente()"
-    >
-      Précédent
-    </button>
-    &nbsp;&nbsp;&nbsp;
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasNextPage"
-      (click)="pageSuivante()"
-    >
-      Suivante
-    </button>
-    &nbsp;&nbsp;&nbsp;
-    <button
-      mat-raised-button
-      color="primary"
-      [disabled]="!hasNextPage"
-      (click)="dernierePage()"
-    >
-      Dernière
-    </button>
-  </div> -->
-
   <mat-paginator
     #paginator
     class="mt-5 bg-transparent rounded-lg border border-neutral-100"
@@ -106,7 +39,7 @@
       (click)="handleAssignmentCardClick(assignment._id!)"
       [ngClass]="{
         'bg-yellow-100': assignment.mark && !assignment.isHanded,
-        'bg-blue-50': assignment.isHanded,
+        'bg-green-50': assignment.isHanded,
         'border border-neutral-100 bg-white hover:bg-blue-500 hover:text-white cursor-pointer transition-all duration-100 shadow flex gap-10 p-5 rounded-xl max-w-full': true
       }"
     >
@@ -155,23 +88,4 @@
       </div>
     </div>
   </div>
-
-  <!-- <table
-    mat-table
-    [dataSource]="assignments"
-    class="mat-elevation-z8 demo-table"
-  >
-    <ng-container matColumnDef="nom">
-      <th mat-header-cell *matHeaderCellDef>Nom</th>
-      <td mat-cell *matCellDef="let a">{{ a.name }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="dateDeRendu">
-      <th mat-header-cell *matHeaderCellDef>Date de rendu</th>
-      <td mat-cell *matCellDef="let a">{{ a.dateRendu | date }}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-  </table> -->
 </div>

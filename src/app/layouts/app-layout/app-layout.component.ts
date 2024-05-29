@@ -2,7 +2,9 @@ import { Component, ViewChild } from '@angular/core';
 import { MatDrawer, MatSidenavModule } from '@angular/material/sidenav';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import {
+  bootstrapCheck2All,
   bootstrapLayoutSidebarInset,
+  bootstrapList,
   bootstrapPlusLg,
 } from '@ng-icons/bootstrap-icons';
 import { heroHome } from '@ng-icons/heroicons/outline';
@@ -34,7 +36,13 @@ import { AuthService } from '../../shared/services/auth.service';
   templateUrl: './app-layout.component.html',
   styleUrl: './app-layout.component.css',
   providers: [
-    provideIcons({ bootstrapLayoutSidebarInset, heroHome, bootstrapPlusLg }),
+    provideIcons({
+      bootstrapLayoutSidebarInset,
+      heroHome,
+      bootstrapPlusLg,
+      bootstrapList,
+      bootstrapCheck2All,
+    }),
   ],
 })
 export class AppLayoutComponent {
@@ -49,7 +57,7 @@ export class AppLayoutComponent {
   login() {
     // on utilise le service d'autentification
     // pour se connecter ou se déconnecter
-    localStorage.removeItem('login');
+    this.authService.logout();
     this.router.navigate(['/login']);
     // on navigue vers la page d'accueil
   }
