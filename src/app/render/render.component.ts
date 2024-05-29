@@ -1,10 +1,11 @@
-import { Component,OnInit,ViewChild,NgZone} from '@angular/core';
+import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
 import {
   CdkDragDrop,
+  moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
-import { NgFor } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 import { IAssignment } from '../shared/interfaces/subject.interface';
 import { AssignmentsService } from '../shared/services/assignments.service';
 import { FormsModule } from '@angular/forms';
@@ -18,6 +19,8 @@ import {
   CdkVirtualScrollViewport,
   ScrollingModule,
 } from '@angular/cdk/scrolling';
+import { NgIconComponent, provideIcons } from '@ng-icons/core';
+import { remixBrush2Fill } from '@ng-icons/remixicon';
 /**
  * @title Drag&Drop connected sorting
  */
@@ -36,6 +39,13 @@ import {
     MatFormFieldModule,
     MatDatepickerModule,
     MatButtonModule,
+    CommonModule,
+    NgIconComponent,
+  ],
+  providers: [
+    provideIcons({
+      remixBrush2Fill,
+    }),
   ],
 })
 export class RenderComponent implements OnInit {
@@ -43,7 +53,8 @@ export class RenderComponent implements OnInit {
   assignmentNotReturned: IAssignment[] = [];
   assignment: IAssignment | undefined;
   // pour virtual scroll infini
-  @ViewChild('scrollerNotReturned') scrollerNotReturned!: CdkVirtualScrollViewport;
+  @ViewChild('scrollerNotReturned')
+  scrollerNotReturned!: CdkVirtualScrollViewport;
   @ViewChild('scrollerReturned') scrollerReturned!: CdkVirtualScrollViewport;
   dropEvent: any;
   showModal = false;
@@ -51,42 +62,44 @@ export class RenderComponent implements OnInit {
   noteTeacher = 10;
 
   pageReturned = 1;
-  limitReturned = 10; 
+  limitReturned = 10;
   totalPagesReturned = 0;
   hasNextPageReturned!: boolean;
   nextPageReturned!: number;
   pageNotReturned = 1;
-  limitNotReturned  = 10; 
+  limitNotReturned = 10;
   totalPagesNotReturned = 0;
   hasNextPageNotReturned!: boolean;
   nextPageNotReturned!: number;
 
-  searchReturned = "";
-  searchNotReturned = "";
+  searchReturned = '';
+  searchNotReturned = '';
 
-  constructor(private assignmentsService: AssignmentsService, private ngZone: NgZone) {}
+  constructor(
+    private assignmentsService: AssignmentsService,
+    private ngZone: NgZone
+  ) {}
 
   ngOnInit(): void {
     this.loadAssignmentsReturned();
     this.loadAssignmentsNotReturned();
-  
   }
 
   onInputChangeFirst(value: string) {
-  this.applyAllFilters(value,"notReturned");
+    this.applyAllFilters(value, 'notReturned');
   }
 
   onInputChangeSecond(value: string) {
-  this.applyAllFilters(value,"returned");
+    this.applyAllFilters(value, 'returned');
   }
 
   clearReturned = () => {
-    this.searchReturned ="";
+    this.searchReturned = '';
     this.loadAssignmentsReturned();
   };
 
   clearNotReturned = () => {
-    this.searchNotReturned ="";
+    this.searchNotReturned = '';
     this.loadAssignmentsNotReturned();
   };
 
@@ -94,31 +107,33 @@ export class RenderComponent implements OnInit {
     this.showModal = !this.showModal;
   }
 
-  
-  private applyAllFilters = (value: string,type: string) => {
-    if (type == "returned") {
+  private applyAllFilters = (value: string, type: string) => {
+    if (type == 'returned') {
       this.assignmentsService.searchReturned(value).subscribe((data) => {
         this.assignmentReturned = data;
       });
     }
 
-    if (type == "notReturned") {
+    if (type == 'notReturned') {
       this.assignmentsService.searchNotReturned(value).subscribe((data) => {
         this.assignmentNotReturned = data;
       });
     }
-
   };
 
   loadAssignmentsNotReturned() {
-  this.assignmentsService
-    .getAssignmentNotReturned(this.pageNotReturned, this.limitNotReturned)
-    .subscribe((data) => {
-      this.assignmentNotReturned = [...this.assignmentNotReturned, ...data.assignments];
-      this.totalPagesNotReturned = data.totalPages;
-      this.nextPageNotReturned = data.nextPage;
-      this.hasNextPageNotReturned = data.hasNextPage;
-    });
+    this.assignmentsService
+      .getAssignmentNotReturned(this.pageNotReturned, this.limitNotReturned)
+      .subscribe((data) => {
+        console.log(data);
+        this.assignmentNotReturned = [
+          ...this.assignmentNotReturned,
+          ...data.assignments,
+        ];
+        this.totalPagesNotReturned = data.totalPages;
+        this.nextPageNotReturned = data.nextPage;
+        this.hasNextPageNotReturned = data.hasNextPage;
+      });
   }
 
   loadAssignmentsReturned() {
@@ -126,48 +141,54 @@ export class RenderComponent implements OnInit {
       .getAssignmentReturned(this.pageReturned, this.limitReturned)
       .subscribe((data) => {
         console.log(data);
-        this.assignmentReturned = [...this.assignmentReturned, ...data.assignments];
+        this.assignmentReturned = [
+          ...this.assignmentReturned,
+          ...data.assignments,
+        ];
         this.totalPagesReturned = data.totalPages;
         this.nextPageReturned = data.nextPage;
         this.hasNextPageReturned = data.hasNextPage;
       });
-  
-    }
+  }
   // methode pour deplacé un assignment vers la partie non rendu
   drop(event: CdkDragDrop<IAssignment[]>) {
     this.dropEvent = event;
-    this.assignment = event.previousContainer.data[0];
-    if (this.dropEvent.previousContainer === this.dropEvent.container) {
+    this.assignment = event.previousContainer.data[event.previousIndex];
 
+    console.log('Dropped Item:', event.previousIndex);
+    if (this.dropEvent.previousContainer === this.dropEvent.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+      // transferArrayItem(
+      //   this.dropEvent.previousContainer.data,
+      //   this.dropEvent.container.data,
+      //   this.dropEvent.previousIndex,
+      //   this.dropEvent.currentIndex
+      // );
+    } else if ('mark' in this.assignment) {
+      console.log('assignement deja noté');
+      this.assignment.isHanded = true;
+      this.assignmentsService.updateAssignment(this.assignment).subscribe();
       transferArrayItem(
         this.dropEvent.previousContainer.data,
         this.dropEvent.container.data,
         this.dropEvent.previousIndex,
         this.dropEvent.currentIndex
       );
-    } else if( "mark" in this.dropEvent.previousContainer.data[0]) {
-      console.log('assignement deja noté');
-      this.assignment.isHanded = true;
-      this.assignmentsService.updateAssignment(this.assignment).subscribe();
-     transferArrayItem(
-      this.dropEvent.previousContainer.data,
-      this.dropEvent.container.data,
-      this.dropEvent.previousIndex,
-      this.dropEvent.currentIndex
-    );
     } else {
       console.log('assignement pas noté');
       this.toggleModal();
     }
-    
   }
   ngAfterViewInit() {
     console.log(' ----- Init DATA----');
     this.scrollerNotReturned
       .elementScrolled()
       .pipe(
-        tap(() => {
-        }),
+        tap(() => {}),
         map((event) => {
           return this.scrollerNotReturned.measureScrollOffset('bottom');
         }),
@@ -178,20 +199,18 @@ export class RenderComponent implements OnInit {
         throttleTime(200)
       )
       .subscribe(() => {
-          this.ngZone.run(() => {
-
-            console.log("hasnextPage:" +this.hasNextPageNotReturned);
-            if (!this.hasNextPageNotReturned) return;
-            this.pageNotReturned = this.nextPageNotReturned;
-            this.loadAssignmentsNotReturned();
-          });
+        this.ngZone.run(() => {
+          console.log('hasnextPage:' + this.hasNextPageNotReturned);
+          if (!this.hasNextPageNotReturned) return;
+          this.pageNotReturned = this.nextPageNotReturned;
+          this.loadAssignmentsNotReturned();
+        });
       });
 
-      this.scrollerReturned
+    this.scrollerReturned
       .elementScrolled()
       .pipe(
-        tap(() => {
-        }),
+        tap(() => {}),
         map((event) => {
           return this.scrollerReturned.measureScrollOffset('bottom');
         }),
@@ -202,13 +221,12 @@ export class RenderComponent implements OnInit {
         throttleTime(200)
       )
       .subscribe(() => {
-          this.ngZone.run(() => {
-
-            console.log("hasnextPage:" +this.hasNextPageReturned);
-            if (!this.hasNextPageReturned) return;
-            this.pageReturned = this.nextPageReturned;
-            this.loadAssignmentsReturned();
-          });
+        this.ngZone.run(() => {
+          console.log('hasnextPage:' + this.hasNextPageReturned);
+          if (!this.hasNextPageReturned) return;
+          this.pageReturned = this.nextPageReturned;
+          this.loadAssignmentsReturned();
+        });
       });
   }
   //action de la modal pour ajouter le note et remarque

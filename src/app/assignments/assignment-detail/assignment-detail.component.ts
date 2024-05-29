@@ -10,6 +10,8 @@ import { AssignmentsService } from '../../shared/services/assignments.service';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../shared/services/auth.service';
 import { IAssignment } from '../../shared/interfaces/subject.interface';
+import { MatDialog } from '@angular/material/dialog';
+import { AuthPopupComponent } from '../../popups/auth-popup/auth-popup.component';
 @Component({
   selector: 'app-assignment-detail',
   standalone: true,
@@ -25,12 +27,13 @@ import { IAssignment } from '../../shared/interfaces/subject.interface';
 })
 export class AssignmentDetailComponent implements OnInit {
   assignment!: IAssignment | undefined;
-
+  isAuthorizedToDelete = false;
   constructor(
     private assignmentsService: AssignmentsService,
     private authService: AuthService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private dialog: MatDialog
   ) {}
 
   ngOnInit() {
@@ -45,23 +48,14 @@ export class AssignmentDetailComponent implements OnInit {
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
       this.assignment = assignment;
     });
-  }
-
-  onAssignmentRendu() {
-    // on a cliqué sur la checkbox, on change le statut de l'assignment
-    // if (this.assignmentTransmis) {
-    //   this.assignmentTransmis.rendu = true;
-    //   this.assignmentsService
-    //     .updateAssignment(this.assignmentTransmis)
-    //     .subscribe((message) => {
-    //       console.log(message);
-    //       // on navigue vers la liste des assignments
-    //       this.router.navigate(['/home']);
-    //     });
-    // }
+    this.isAuthorizedToDelete = this.authService.isAdmin();
   }
 
   handleDelete() {
+    if (!this.isAuthorizedToDelete) {
+      this.dialog.open(AuthPopupComponent);
+      return;
+    }
     if (this.assignment) {
       this.assignmentsService
         .deleteAssignment(this.assignment)

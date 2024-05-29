@@ -20,5 +20,8 @@ export const urls = {
   },
   searchNotReturned: {
     get: baseurl + 'searchNotReturned',
-  }
+  },
+  auth: {
+    login: baseurl + 'teachers',
+  },
 };

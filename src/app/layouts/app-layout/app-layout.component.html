@@ -19,7 +19,7 @@
         class="flex items-center justify-start gap-4 mt-4 hover:text-blue-500 transition-all duration-100"
         routerLink="/app/assignments"
       >
-        <ng-icon name="bootstrapPlusLg" size="27"></ng-icon> All
+        <ng-icon name="bootstrapList" size="27"></ng-icon> All
       </a>
       <a
         class="flex items-center justify-start gap-4 mt-4 hover:text-blue-500 transition-all duration-100"
@@ -31,7 +31,7 @@
         class="flex items-center justify-start gap-4 mt-4 hover:text-blue-500 transition-all duration-100"
         routerLink="/app/render"
       >
-        <ng-icon name="bootstrapPlusLg" size="27"></ng-icon> Hand
+        <ng-icon name="bootstrapCheck2All" size="27"></ng-icon> Hand
       </a>
     </div>
   </mat-drawer>
@@ -45,7 +45,7 @@
         size="27"
         (click)="drawer.toggle()"
       ></ng-icon>
-      <button (click)="login()">Logout</button>
+      <button (click)="login()" class="text-red-500 font-bold">Logout</button>
     </div>
     <div
       class="w-11/12 mx-auto flex-grow p-10 rounded-xl bg-blue-50 mt-10 prose max-w-none overflow-y-scroll"
