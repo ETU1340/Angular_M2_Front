@@ -43,7 +43,8 @@
       [ngClass]="{
         'bg-yellow-100': assignment.mark && !assignment.isHanded,
         'bg-green-50': assignment.isHanded,
-        'border border-neutral-100 bg-white hover:bg-blue-500 hover:text-white cursor-pointer transition-all duration-100 shadow flex gap-10 p-5 rounded-xl max-w-full': true
+        'bg-white': !assignment.isHanded && !assignment.mark,
+        'border border-neutral-100 hover:bg-blue-500 hover:text-white cursor-pointer transition-all duration-100 shadow flex gap-10 p-5 rounded-xl max-w-full': true
       }"
     >
       <div class="flex w-fit">
