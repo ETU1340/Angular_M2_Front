@@ -61,7 +61,7 @@ export class AssignmentDetailComponent implements OnInit {
         .deleteAssignment(this.assignment)
         .subscribe((message) => {
           this.assignment = undefined;
-          this.router.navigate(['/app/']);
+          this.router.navigate(['/app/assignments']);
         });
     }
   }
@@ -73,6 +73,4 @@ export class AssignmentDetailComponent implements OnInit {
   isAdmin() {
     return this.authService.loggedIn;
   }
-
-
-  }
+}

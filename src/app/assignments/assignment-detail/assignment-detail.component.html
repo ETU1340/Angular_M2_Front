@@ -1,7 +1,14 @@
 @if(assignment) {
 
 <div class="w-11/12 xl:w-8/12 mx-auto py-10 px-16 bg-white shadow">
-  <h2 class="m-0 text-center">{{ assignment.name }}</h2>
+  <div class="flex items-center gap-4 justify-center">
+    <div
+      *ngIf="assignment.isHanded"
+      class="bg-green-400 rounded-full w-4 h-4"
+    ></div>
+    <h2 class="m-0 text-center">{{ assignment.name }}</h2>
+  </div>
+
   <div class="flex flex-col h-fit lg:flex-row">
     <div class="flex-1 h-full">
       <img
@@ -34,10 +41,14 @@
         </div>
         <p>{{ assignment.student.name }}</p>
       </div>
-      <p>{{ assignment.dateRendu }}</p>
+      <p>
+        <span class="font-bold">Date : </span>
+        {{ assignment.dateRendu | date }}
+      </p>
+
+      <p><span class="font-bold">Mark : </span> {{ assignment.mark }} / 20</p>
     </div>
   </div>
-  <p>{{ assignment.isHanded }}</p>
   <div class="mt-5 flex flex-col">
     <div class="flex gap-4">
       <button
@@ -49,8 +60,7 @@
       </button>
       <button
         class="flex-1 transition-all duration-75 py-2 bg-blue-500 rounded-lg text-white"
-        (click)="handleUpdate() "
-
+        (click)="handleUpdate()"
       >
         Edit
       </button>

@@ -167,7 +167,7 @@ export class RenderComponent implements OnInit {
         this.dropEvent.previousIndex,
         this.dropEvent.currentIndex
       );
-    } else if ('mark' in this.dropEvent.previousContainer.data[0]) {
+    } else if ('mark' in this.assignment) {
       console.log('assignement deja noté');
       this.assignment.isHanded = true;
       this.assignmentsService.updateAssignment(this.assignment).subscribe();
