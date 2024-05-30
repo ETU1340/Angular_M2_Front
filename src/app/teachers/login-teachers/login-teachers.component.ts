@@ -28,14 +28,17 @@ export class LoginComponent {
   nameTeacher = 'sadpeacock700';
   mdpTeacher = 'jellybea';
   errorMessage = '';
+  isLoading = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
   onSubmit(event: any) {
     if (this.nameTeacher == '' || this.mdpTeacher === undefined) return;
+    this.isLoading = true;
     this.authService
       .logInConnexion(this.nameTeacher, this.mdpTeacher)
       .subscribe((reponse) => {
+        this.isLoading = false;
         if (reponse !== false) {
           this.errorMessage = '';
           localStorage.setItem('login', reponse.isAdmin);

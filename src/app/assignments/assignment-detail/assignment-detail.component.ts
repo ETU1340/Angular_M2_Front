@@ -33,7 +33,8 @@ export class AssignmentDetailComponent implements OnInit {
     private authService: AuthService,
     private route: ActivatedRoute,
     private router: Router,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private utilityService: UtilityService
   ) {}
 
   ngOnInit() {
@@ -53,7 +54,9 @@ export class AssignmentDetailComponent implements OnInit {
 
   handleDelete() {
     if (!this.isAuthorizedToDelete) {
-      this.dialog.open(AuthPopupComponent);
+      this.utilityService.showErrorMessage(
+        'Vous n’êtes pas autorisé(e) a acceder a cette page'
+      );
       return;
     }
     if (this.assignment) {

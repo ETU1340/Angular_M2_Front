@@ -8,12 +8,14 @@ import {
 import { AuthService } from './services/auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthPopupComponent } from '../popups/auth-popup/auth-popup.component';
+import { UtilityService } from './services/utility.service';
 
 export const isAdmin: CanActivateFn = async (
   route: ActivatedRouteSnapshot,
   state: RouterStateSnapshot
 ): Promise<boolean> => {
   const authService = inject(AuthService); // Replace this with proper DI if possible
+  const utilityService = inject(UtilityService); // Replace this with proper DI if possible
   const router = inject(Router); // Replace this with proper DI if possible
   const dialog = inject(MatDialog);
   try {
@@ -23,7 +25,10 @@ export const isAdmin: CanActivateFn = async (
       return true;
     } else {
       console.log('GUARD: Navigation NOT authorized');
-      dialog.open(AuthPopupComponent);
+      // dialog.open(AuthPopupComponent);
+      utilityService.showErrorMessage(
+        'Vous n’êtes pas autorisé(e) a acceder a cette page'
+      );
       return false;
     }
   } catch (error) {

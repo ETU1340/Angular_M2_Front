@@ -39,10 +39,10 @@
       <button
         mat-stroked-button
         color="primary"
-        [disabled]="nameTeacher == '' || mdpTeacher == ''"
-        style="padding: 10px"
+        [disabled]="nameTeacher == '' || mdpTeacher == '' || isLoading"
+        class="py-1"
       >
-        Connexion
+        {{ isLoading ? "Loading..." : "Connexion" }}
       </button>
       <div style="color: red">{{ errorMessage }}</div>
     </form>
