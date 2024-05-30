@@ -107,6 +107,7 @@ export class AssignmentsComponent implements OnInit {
     this.assignmentsService
       .getAssignmentsPagines(this.page, this.limit)
       .subscribe((data) => {
+        console.log(data);
         this.assignments = data.assignments;
         this.totalDocs = data.totalDocs;
         this.totalPages = data.totalPages;
@@ -154,7 +155,7 @@ export class AssignmentsComponent implements OnInit {
     this.getAssignmentsFromService();
   }
   handlePageEvent(event: PageEvent) {
-    this.page = event.pageIndex + 1;
+    this.page = event.pageIndex;
     this.limit = event.pageSize;
     this.getAssignmentsFromService();
   }
