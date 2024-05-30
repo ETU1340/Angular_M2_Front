@@ -16,22 +16,22 @@ export class AssignmentsService {
   assignments: Assignment[] = [];
 
   constructor(private logService: LoggingService, private http: HttpClient) {}
-  uri = 'http://localhost:8010/api/assignments';
+  // uri = 'http://localhost:8010/api/assignments';
   //uri = 'https://angularmbdsmadagascar2024.onrender.com/api/assignments';
 
   // retourne tous les assignments
   getAssignments(): Observable<IAssignment[]> {
-    return this.http.get<IAssignment[]>(this.uri);
+    return this.http.get<IAssignment[]>(urls.assignments.get);
   }
   getAssignmentReturned(page: number, limit: number): Observable<any> {
     return this.http.get<any>(
-      'http://localhost:8010/api/assignmentReturned?page='+page+'&limit='+limit
+      urls.assignments.returned + '?page=' + page + '&limit=' + limit
     );
   }
 
   getAssignmentNotReturned(page: number, limit: number): Observable<any> {
     return this.http.get<any>(
-      'http://localhost:8010/api/assignmentNotReturned?page='+page+'&limit='+limit
+      urls.assignments.notReturned + '?page=' + page + '&limit=' + limit
     );
   }
 
@@ -43,7 +43,7 @@ export class AssignmentsService {
 
   // renvoie un assignment par son id, renvoie undefined si pas trouvé
   getAssignment(id: number): Observable<IAssignment | undefined> {
-    return this.http.get<Assignment>(this.uri + '/' + id).pipe(
+    return this.http.get<Assignment>(urls.assignments.get + '/' + id).pipe(
       catchError(
         this.handleError<any>(
           '### catchError: getAssignments by id avec id=' + id
@@ -84,19 +84,23 @@ export class AssignmentsService {
   }
 
   deleteAssignment(assignment: IAssignment): Observable<any> {
-    return this.http.delete(this.uri + '/' + assignment._id);
+    return this.http.delete(urls.assignments.delete + '/' + assignment._id);
   }
 
   getStat() {
     return this.http.get(urls.stat.get);
   }
 
-  searchReturned(name :string):Observable<IAssignment[]> {
-    return this.http.get<IAssignment[]>(urls.searchReturned.get+ '?name=' + name );
+  searchReturned(name: string): Observable<IAssignment[]> {
+    return this.http.get<IAssignment[]>(
+      urls.searchReturned.get + '?name=' + name
+    );
   }
 
-  searchNotReturned(name :string):Observable<IAssignment[]> {
-    return this.http.get<IAssignment[]>(urls.searchNotReturned.get+ '?name=' + name );
+  searchNotReturned(name: string): Observable<IAssignment[]> {
+    return this.http.get<IAssignment[]>(
+      urls.searchNotReturned.get + '?name=' + name
+    );
   }
 
   // VERSION NAIVE (on ne peut pas savoir quand l'opération des 1000 insertions est terminée)

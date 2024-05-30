@@ -1,4 +1,5 @@
-export const baseurl = 'http://localhost:8010/api/';
+// export const baseurl = 'http://localhost:8010/api/';
+export const baseurl = 'https://angular-m2-backend.onrender.com/api/';
 export const urls = {
   students: {
     get: baseurl + 'students',
@@ -11,6 +12,8 @@ export const urls = {
     get: baseurl + 'assignments',
     put: baseurl + 'assignments',
     delete: baseurl + 'assignments',
+    returned: baseurl + 'assignmentReturned',
+    notReturned: baseurl + 'assignmentNotReturned',
   },
   stat: {
     get: baseurl + 'stat',

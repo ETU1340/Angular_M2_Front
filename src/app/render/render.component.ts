@@ -1,8 +1,5 @@
 import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-import {
-  CdkDragDrop,
-  transferArrayItem,
-} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, transferArrayItem } from '@angular/cdk/drag-drop';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule, NgFor } from '@angular/common';
 import { IAssignment } from '../shared/interfaces/subject.interface';
@@ -75,7 +72,13 @@ export class RenderComponent implements OnInit {
   searchReturned = '';
   searchNotReturned = '';
 
-  constructor(private assignmentsService: AssignmentsService, private ngZone: NgZone,private utilityService : UtilityService) {}
+  isLoading = false;
+
+  constructor(
+    private assignmentsService: AssignmentsService,
+    private ngZone: NgZone,
+    private utilityService: UtilityService
+  ) {}
 
   ngOnInit(): void {
     this.loadAssignmentsReturned();
@@ -119,6 +122,7 @@ export class RenderComponent implements OnInit {
   };
 
   loadAssignmentsNotReturned() {
+    this.isLoading = true;
     this.assignmentsService
       .getAssignmentNotReturned(this.pageNotReturned, this.limitNotReturned)
       .subscribe((data) => {
@@ -130,10 +134,12 @@ export class RenderComponent implements OnInit {
         this.totalPagesNotReturned = data.totalPages;
         this.nextPageNotReturned = data.nextPage;
         this.hasNextPageNotReturned = data.hasNextPage;
+        this.isLoading = false;
       });
   }
 
   loadAssignmentsReturned() {
+    this.isLoading = true;
     this.assignmentsService
       .getAssignmentReturned(this.pageReturned, this.limitReturned)
       .subscribe((data) => {
@@ -145,6 +151,7 @@ export class RenderComponent implements OnInit {
         this.totalPagesReturned = data.totalPages;
         this.nextPageReturned = data.nextPage;
         this.hasNextPageReturned = data.hasNextPage;
+        this.isLoading = false;
       });
   }
   // methode pour deplacé un assignment vers la partie non rendu
@@ -154,24 +161,25 @@ export class RenderComponent implements OnInit {
 
     console.log('Dropped Item:', event.previousIndex);
     if (this.dropEvent.previousContainer === this.dropEvent.container) {
-
       transferArrayItem(
         this.dropEvent.previousContainer.data,
         this.dropEvent.container.data,
         this.dropEvent.previousIndex,
         this.dropEvent.currentIndex
       );
-    } else if( "mark" in this.dropEvent.previousContainer.data[0]) {
-        console.log('assignement deja noté');
-        this.assignment.isHanded = true;
-        this.assignmentsService.updateAssignment(this.assignment).subscribe();
-        transferArrayItem(
+    } else if ('mark' in this.dropEvent.previousContainer.data[0]) {
+      console.log('assignement deja noté');
+      this.assignment.isHanded = true;
+      this.assignmentsService.updateAssignment(this.assignment).subscribe();
+      transferArrayItem(
         this.dropEvent.previousContainer.data,
         this.dropEvent.container.data,
         this.dropEvent.previousIndex,
         this.dropEvent.currentIndex
-        );
-        this.utilityService.showSuccessMessage("Assignment already noted, delivered successfully");
+      );
+      this.utilityService.showSuccessMessage(
+        'Assignment already noted, delivered successfully'
+      );
     } else {
       console.log('assignement pas noté');
       this.toggleModal();
@@ -242,6 +250,6 @@ export class RenderComponent implements OnInit {
       this.dropEvent.previousIndex,
       this.dropEvent.currentIndex
     );
-    this.utilityService.showSuccessMessage("Assignment delivered successfully");
+    this.utilityService.showSuccessMessage('Assignment delivered successfully');
   }
 }
