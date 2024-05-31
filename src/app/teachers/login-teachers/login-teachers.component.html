@@ -1,46 +1,46 @@
 <div
-  class="w-screen h-screen bg-blue-100 flex items-center justify-center prose max-w-none"
+  class="w-screen h-screen bg-gradient-to-b from-white shadow to-blue-300 flex items-center justify-center prose max-w-none"
 >
-  <div class="w-5/12 bg-white p-10 rounded-xl">
-    <h2 class="mt-0">Page de Connexion</h2>
-
-    <form
-      ngForm
-      #teacherForm
-      (submit)="onSubmit($event); teacherForm.reset()"
-      class="form"
-    >
-      <mat-form-field>
+  <div class="w-5/12 bg-white p-10 rounded-3xl prose max-w-none">
+    <h1 class="text-blue-600 text-center">Assign-App</h1>
+    <!-- <h6 class="mt-0">Login Page</h6> -->
+    <form ngForm #teacherForm (submit)="onSubmit($event)" class="form">
+      <div>
+        <label for="" class="ml-3 m-0 font-bold text-neutral-600"
+          >Username :</label
+        >
         <input
-          matInput
+          class="border-0 mt-2 rounded-2xl focus:outline-[0.5px] focus:outline-neutral-400 w-full py-3 px-3 bg-neutral-200"
           placeholder="Nom"
           required
           [(ngModel)]="nameTeacher"
           name="nom"
         />
-      </mat-form-field>
+      </div>
 
-      <mat-form-field>
+      <div class="mt-5">
+        <label for="" class="ml-3 m-0 font-bold text-neutral-600"
+          >Password :</label
+        >
         <input
-          matInput
+          class="border-0 mt-2 rounded-2xl focus:outline-[0.5px] focus:outline-neutral-400 w-full py-3 px-3 bg-neutral-200"
           placeholder="Mot de passe"
           type="password"
           required
           [(ngModel)]="mdpTeacher"
           name="mdp"
         />
-      </mat-form-field>
-      <p class="m-0 mb-5 text-xs text-pretty">
+      </div>
+      <p class="m-0 mb-5 text-xs text-pretty mt-5 ml-5">
         <span class="font-extrabold">NB : </span> Default user is admin , for
         non admin , use these <br />
         <span class="font-medium">username : brownleopard474</span> <br />
         <span class="font-medium">password : scotland</span>
       </p>
       <button
-        mat-stroked-button
         color="primary"
         [disabled]="nameTeacher == '' || mdpTeacher == '' || isLoading"
-        class="py-1"
+        class="py-2 bg-blue-500 text-white w-fit px-12 mx-auto font-bold rounded-2xl"
       >
         {{ isLoading ? "Loading..." : "Connexion" }}
       </button>

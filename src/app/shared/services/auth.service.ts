@@ -7,13 +7,14 @@ import {
 import { Observable, throwError, of } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { urls } from './urls';
+import { ITeacher } from '../interfaces/person.interface';
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
   // propriété pour savoir si l'utilisateur est connecté
   loggedIn = false;
-
+  teacher: ITeacher | undefined;
   constructor(private http: HttpClient) {}
   // uri = "http://localhost:8010/api/teachers";
   // méthode pour connecter l'utilisateur
@@ -39,7 +40,15 @@ export class AuthService {
       .post<any>(urls.auth.login, body, { headers: headers })
       .pipe(catchError(this.handleError));
   }
-
+  setTeacher(teacher: ITeacher) {
+    this.teacher = teacher;
+  }
+  getTeacher() {
+    if (!this.teacher) {
+      this.teacher = JSON.parse(localStorage.getItem('teacher') || '{}');
+    }
+    return this.teacher;
+  }
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // Erreur côté client

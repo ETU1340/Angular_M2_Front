@@ -17,6 +17,8 @@ import { AssignmentsComponent } from '../../assignments/assignments.component';
 import { TeachersComponent } from '../../teachers/teachers.component';
 import { AssignmentsService } from '../../shared/services/assignments.service';
 import { AuthService } from '../../shared/services/auth.service';
+import { featherLogOut } from '@ng-icons/feather-icons';
+import { ITeacher } from '../../shared/interfaces/person.interface';
 
 @Component({
   selector: 'app-app-layout',
@@ -42,19 +44,23 @@ import { AuthService } from '../../shared/services/auth.service';
       bootstrapPlusLg,
       bootstrapList,
       bootstrapCheck2All,
+      featherLogOut,
     }),
   ],
 })
 export class AppLayoutComponent {
   title = 'Application de gestion des assignments';
   showFiller = true;
+  teacher: ITeacher | undefined;
   constructor(
     private authService: AuthService,
     private assignmentsService: AssignmentsService,
     private router: Router
   ) {}
-  ngOnInit(): void {}
-  login() {
+  ngOnInit(): void {
+    this.teacher = this.authService.getTeacher();
+  }
+  logout() {
     // on utilise le service d'autentification
     // pour se connecter ou se déconnecter
     this.authService.logout();

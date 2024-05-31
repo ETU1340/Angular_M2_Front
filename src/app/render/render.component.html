@@ -121,7 +121,7 @@
     <cdk-virtual-scroll-viewport
       style="width: full"
       itemSize="10"
-      class="example-viewport mt-5"
+      class="example-viewport mt-5 border-0"
       #scrollerNotReturned
     >
       <div
@@ -129,11 +129,11 @@
         #notReturnedList="cdkDropList"
         [cdkDropListData]="assignmentNotReturned"
         [cdkDropListConnectedTo]="[returnedList]"
-        class="example-list"
+        class="example-list border-0"
         (cdkDropListDropped)="drop($event)"
       >
         <div
-          class="example-box"
+          class="example-box border-0"
           *ngFor="let item of assignmentNotReturned"
           cdkDrag
         >

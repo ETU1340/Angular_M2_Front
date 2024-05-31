@@ -8,6 +8,8 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 
 import { AuthService } from '../../shared/services/auth.service';
 import { Router } from '@angular/router';
+import { Teacher } from '../teachers.model';
+import { response } from 'express';
 
 @Component({
   selector: 'app-add-assignment',
@@ -39,9 +41,13 @@ export class LoginComponent {
       .logInConnexion(this.nameTeacher, this.mdpTeacher)
       .subscribe((reponse) => {
         this.isLoading = false;
+        this.authService.setTeacher(reponse);
         if (reponse !== false) {
+          // console.log(reponse);
           this.errorMessage = '';
+          localStorage.setItem('teacher', JSON.stringify(reponse));
           localStorage.setItem('login', reponse.isAdmin);
+          this.authService.setTeacher(reponse);
           this.router.navigate(['/app']);
         } else {
           this.errorMessage = 'Information incorrecte';

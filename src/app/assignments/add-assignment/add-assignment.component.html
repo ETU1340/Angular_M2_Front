@@ -32,8 +32,11 @@
   class="form"
 >
   <!-- Étape 1 -->
-  <div *ngIf="currentStep === 1" class="flex flex-col w-6/12 mx-auto">
-    <h2>Étape 1: Informations de base</h2>
+  <div
+    *ngIf="currentStep === 1"
+    class="flex flex-col mt-14 w-6/12 mx-auto bg-white px-10 py-10 rounded-3xl shadow"
+  >
+    <h2 class="mt-0">Step 1: Basic Informations</h2>
     <mat-form-field class="mt-5">
       <input
         matInput
@@ -58,18 +61,23 @@
       ></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <button
-      type="button"
-      class="mt-10 bg-blue-500 text-white py-2 font-bold rounded-lg"
-      (click)="nextStep()"
-    >
-      Suivant
-    </button>
+    <div class="flex justify-end">
+      <button
+        type="button"
+        class="mt-10 bg-blue-500 w-fit px-10 text-white py-2 font-bold rounded-lg"
+        (click)="nextStep()"
+      >
+        Next
+      </button>
+    </div>
   </div>
 
   <!-- Étape 2 -->
-  <div *ngIf="currentStep === 2" class="flex flex-col w-6/12 mx-auto">
-    <h2>Étape 2: Informations sur l'étudiant</h2>
+  <div
+    *ngIf="currentStep === 2"
+    class="flex flex-col w-6/12 mx-auto bg-white px-10 py-10 mt-14 rounded-3xl shadow"
+  >
+    <h2 class="m-0">Étape 2: Student Informations</h2>
     @if (assignedStudent) {
     <div class="mx-auto" (click)="toggleModal()">
       <img
@@ -84,7 +92,7 @@
     } @else {
     <div
       (click)="toggleModal()"
-      class="h-40 border border-dashed rounded-md flex justify-center items-center border-slate-900 bg-white font-bold"
+      class="h-40 mt-10 border border-dashed rounded-md flex justify-center items-center border-slate-900 bg-neutral-50 font-bold"
     >
       Select student
     </div>
@@ -95,23 +103,25 @@
         class="flex-1 border-blue-500 border-2 py-2 text-blue-500 rounded-lg"
         (click)="previousStep()"
       >
-        Précédent
+        Previous
       </button>
       <button
         type="button"
         class="flex-1 bg-blue-500 text-white py-2 font-bold rounded-lg"
         (click)="nextStep()"
       >
-        Suivant
+        Next
       </button>
     </div>
   </div>
 
   <!-- Étape 3 -->
-  <div *ngIf="currentStep === 3" class="flex flex-col w-6/12 mx-auto">
-    <h2>Étape 3: Informations sur le sujet</h2>
-
-    <mat-form-field class="w-full">
+  <div
+    *ngIf="currentStep === 3"
+    class="flex flex-col w-6/12 mx-auto bg-white px-10 py-10 mt-14 rounded-3xl shadow"
+  >
+    <h2 class="m-0">Step 3 : Subject Information</h2>
+    <mat-form-field class="w-full mt-10">
       <mat-label>Matiere : </mat-label>
       <mat-select (selectionChange)="setSubject($event)">
         @for (subject of subjects; track $index) {
@@ -160,16 +170,12 @@
           'py-2': true,
           'font-bold': true,
           'rounded-lg': true,
-          'bg-neutral-200':
-            nomAssignment === '' || dateDeRendu === undefined ,
-          'text-neutral-400':
-            nomAssignment === '' || dateDeRendu === undefined ,
+          'bg-neutral-200': nomAssignment === '' || dateDeRendu === undefined,
+          'text-neutral-400': nomAssignment === '' || dateDeRendu === undefined,
           'cursor-not-allowed':
-            nomAssignment === '' || dateDeRendu === undefined 
+            nomAssignment === '' || dateDeRendu === undefined
         }"
-        [disabled]="
-          nomAssignment == '' || dateDeRendu === undefined
-        "
+        [disabled]="nomAssignment == '' || dateDeRendu === undefined"
       >
         Ajouter un devoir
       </button>

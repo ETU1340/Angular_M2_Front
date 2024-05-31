@@ -28,6 +28,8 @@ import { AuthPopupComponent } from '../../popups/auth-popup/auth-popup.component
 export class AssignmentDetailComponent implements OnInit {
   assignment!: IAssignment | undefined;
   isAuthorizedToDelete = false;
+  isLoading = false;
+
   constructor(
     private assignmentsService: AssignmentsService,
     private authService: AuthService,
@@ -46,8 +48,10 @@ export class AssignmentDetailComponent implements OnInit {
     // On recupere l'id de l'assignment dans l'URL à l'aide de ActivatedRoute
     const id = this.route.snapshot.params['id'];
     // On utilise le service pour récupérer l'assignment avec cet id
+    this.isLoading = true;
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
       this.assignment = assignment;
+      this.isLoading = false;
     });
     this.isAuthorizedToDelete = this.authService.isAdmin();
   }

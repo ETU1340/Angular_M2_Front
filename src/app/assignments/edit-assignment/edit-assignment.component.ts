@@ -48,7 +48,7 @@ export class EditAssignmentComponent implements OnInit {
   subjects: ISubject[] = [];
 
   showModal = false;
-
+  isLoading = false;
   constructor(
     private assignmentsService: AssignmentsService,
     private router: Router,
@@ -65,14 +65,15 @@ export class EditAssignmentComponent implements OnInit {
     this.subjectsService.getSubjects().subscribe((data) => {
       this.subjects = data;
     });
+    this.isLoading = true;
     this.assignmentsService.getAssignment(id).subscribe((assignment) => {
       this.assignment = assignment;
       console.log(assignment);
-
       if (assignment !== undefined) {
         this.name = assignment.name;
         this.dateRendu = assignment.dateRendu;
       }
+      this.isLoading = false;
     });
   }
   handleStudentChange(index: number) {
