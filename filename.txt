@@ -1,0 +1,246 @@
+commit 66f8d3e8d2bf867e87a1d7aef2d738e4f6f8fd28
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Fri May 31 15:43:58 2024 +0300
+
+    design : refont all pages
+
+commit 748e6756064bf507233f8d56b74edfaa5299659f
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Fri May 31 12:08:52 2024 +0300
+
+    add : htaccess
+
+commit 4330006432b69439225158845005dc7d3558fee5
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Thu May 30 22:05:52 2024 +0300
+
+    fix : change is admin modal
+
+commit b16aa29671cd2d36dd5e959a65396f69f00723c9
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Thu May 30 21:04:05 2024 +0300
+
+    update base url to remote server
+
+commit d0010b967847acb0f3cf882e0563e0ace51adf8d
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Thu May 30 20:58:12 2024 +0300
+
+    fix : assignment card color
+
+commit a29c185f9afb22b97841be744bf8bf0c1e683215
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Thu May 30 20:53:45 2024 +0300
+
+    last edit
+
+commit b3542464fe4c26fa6ee04239f05be85b8dd5dab0
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Thu May 30 20:23:06 2024 +0300
+
+    last update
+
+commit 370f1729a91e6877374f938e5b124b9d206bdef2
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Thu May 30 19:57:55 2024 +0300
+
+    refactor : add server url
+
+commit 893080d5985cd72efd97a490b14804f056c7dfc3
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Thu May 30 02:00:31 2024 +0300
+
+    Ajout de message de succes sur la remise d'assignement
+
+commit c47e1325d79a09a9a5f4ea41b8d8f55385db2945
+Merge: ce8d008 c5d3e5a
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Thu May 30 01:37:59 2024 +0300
+
+    resolve conflit
+
+commit ce8d0082d731061016b3fe516d35fba2f24522eb
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Thu May 30 00:47:07 2024 +0300
+
+    Ajout d'une message de notification
+
+commit c5d3e5a8ea30465df92746aa05dd0883d6f32afd
+Merge: 9ca4d0c 0c78dd6
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Thu May 30 00:39:33 2024 +0300
+
+    Merge branch 'main' of https://github.com/ETU1340/Angular_M2_Front
+
+commit 9ca4d0c0116fdfc00cb4ad8dd6fb86c4bf710051
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Thu May 30 00:38:38 2024 +0300
+
+    feat : is Admin auth , design : render
+
+commit 0c78dd6952adf364a7a22824e3c1bfd502a1cf4f
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Wed May 29 20:41:53 2024 +0300
+
+    mis à jour package.json
+
+commit d2485e08b1e9869bfa4e055375ed363f93973c32
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Wed May 29 20:05:22 2024 +0300
+
+    mis à jour du package.json
+
+commit bc6414ce15b6b5f8d774d378808fba2729033e24
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Tue May 28 00:23:32 2024 +0300
+
+    ajout d'un barre de recherche pour la liste des assignements à rendre et rendu
+
+commit e9ea021e24fc658fcd4f6fbdef607e4f7f52371e
+Author: Nomena <noumsfinoana@gmail.com>
+Date:   Mon May 27 18:21:18 2024 +0300
+
+    correction de la liste d'assignement avec drag and drop
+
+commit ff0551ade2c87112388e9ad778ebe7f9beed1246
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Mon May 27 06:48:04 2024 +0300
+
+    fix drag and drop and infinity scroll
+
+commit 5600a6470c425ab860963f1408169fa5ff6e687b
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Sun May 26 00:08:44 2024 +0300
+
+    fix : fix drag and drop , add dashboard ,
+
+commit c27c492f4ac56ed71711a518960be4b8011c1b4c
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Thu May 23 23:40:24 2024 +0300
+
+    design : update , details
+
+commit 898d42c880a624b3c83666c818dc7603d9760300
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Thu May 23 19:50:33 2024 +0300
+
+    refactor code
+
+commit 07b28c2b2939b0a12d21ba8676e906f41e8802e9
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Wed May 22 23:12:44 2024 +0300
+
+    style : refond de design
+
+commit 14705277eef7c0b547c0ae3ff47a997781677845
+Merge: ad9e37f 4ee76fb
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Wed May 22 20:47:11 2024 +0300
+
+    Merge branch 'main' of https://github.com/ETU1340/Angular_M2_Front
+
+commit ad9e37f5ef22dd2087692e886ab7aa938675ac91
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Wed May 22 20:46:01 2024 +0300
+
+    last update
+
+commit 4ee76fb136b8dacb79b2620117a6659ad72e1b97
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Wed May 22 00:03:42 2024 +0300
+
+    la fonctionnalité d'ajout par etape des assignements
+
+commit 66e0823d4246feaa54ef9b2ad4f5598a6fc06b15
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Mon May 20 20:01:08 2024 +0300
+
+    mis à jour de la rendu des assignements
+
+commit eefbbda8817c1eb0e5d9f9570485df004b11113e
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Sat May 11 22:15:22 2024 +0300
+
+    feat : insert assignment
+
+commit ed4d4ec10898396072200c69a9cd04fd2c78c915
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Sun Apr 28 21:41:20 2024 +0300
+
+    refactor , insert assignment form with subject and student
+
+commit cf4385f6c6377e970b1a73598fa30107e6ea030b
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Fri Apr 19 22:18:33 2024 +0300
+
+    ajout de la fonctionnalité drag and drop pour rendre les assignements
+
+commit fd21facdadb9044070928b7c33d9666368e39528
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Tue Apr 16 23:14:14 2024 +0300
+
+    manage student
+
+commit e182401157fdca8374a59dbd4236c4d4e4e1693c
+Merge: 8394d7d 4aac32b
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Tue Apr 16 19:22:38 2024 +0300
+
+    Merge branch 'main' of https://github.com/ETU1340/Angular_M2_Front
+
+commit 8394d7d2d9fc7bfd0c98b76a89ff7663dba56e84
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Tue Apr 16 19:19:42 2024 +0300
+
+    last edit
+
+commit 4aac32b050bf208bb07acaa95b92b9de89bee93b
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Fri Mar 22 00:20:27 2024 +0300
+
+    Déconnexion et gestion des droits particulier pour les Admins
+
+commit bf1b8040b54a56003e76f9cca1eee1e16c96ae12
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Sun Mar 17 22:12:29 2024 +0300
+
+    setup add form with student field
+
+commit 06f6ca1f2e98b2a8818aececb2f618a7dc8ec3ca
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Sat Mar 16 20:55:36 2024 +0300
+
+    refactor to new layout
+
+commit 2b7e30bbb549d8b05eeb3bb808db7af77f802869
+Author: ETU1340 <noumsfinoana@gmail.com>
+Date:   Fri Mar 15 23:42:59 2024 +0300
+
+    mis en place d'une page de connexion
+
+commit 085ed45131bafcb4b12825330a5db998a9f0dcd5
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Sun Mar 10 23:28:27 2024 +0300
+
+    screen loader
+
+commit c4c6496fc0c9d2569b70ea9b987d5eaa598aeff8
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Sun Mar 10 21:37:42 2024 +0300
+
+    styling nav bar
+
+commit 8f0b01a963e1d4e0e371905d040cee3502d8b42e
+Author: ace34TT <tafinasoa35@gmail.com>
+Date:   Sun Mar 10 21:06:29 2024 +0300
+
+    add tailwindcss
+    refont app layout
+
+commit a76a03ed2e9d76421da3083bdb2c2a146e4c906b
+Author: ETU1340 <80956674+ETU1340@users.noreply.github.com>
+Date:   Sat Mar 9 22:15:25 2024 +0300
+
+    Add files via upload
+    
+    First depot
